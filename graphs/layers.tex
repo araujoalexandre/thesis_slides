@@ -9,8 +9,10 @@
     ylabel={Validation GAP},
     xmin=0, xmax=7,
     ymin=0.77, ymax=0.86,
+    % ymin=0.50, ymax=0.86,
     xtick={0,1,2,3,4,5,6,7},
     ytick={0.77,0.78,0.79,0.8,0.81,0.82,0.83,0.84,0.85,0.86},
+    % ytick={0.50,0.55,0.6,0.65,0.70,0.75,0.8,0.85,0.9},
     legend pos=outer north east,
     ymajorgrids=true,
     grid style=dashed,
@@ -25,10 +27,10 @@
   \draw [<-] (axis cs:5.0,0.800) -- +(+10pt,-10pt) node[right] {72.0\%};
 
 \legend{
-   Dense Model,
-   Model w/compact DBoF, 
-   Model w/compact FC, 
-   Model w/compact MoE,
+   Model with Dense Layers,
+   Model with compact Layer1, 
+   Model with compact Layer2, 
+   Model with compact Layer3,
  }
 \end{axis}
 \end{tikzpicture}

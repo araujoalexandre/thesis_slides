@@ -1,0 +1,208 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Customize template
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setbeamercolor{background canvas}{bg=white}
+\setbeamertemplate{frametitle continuation}{}
+\setbeamertemplate{theorems}[numbered]
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+
+\AtBeginSubsection[]
+{
+\begin{frame}
+  \frametitle{Table of Contents}
+  \tableofcontents[currentsection,currentsubsection]
+\end{frame}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{url}            % simple URL typesetting
+\usepackage{microtype}      % microtypography
+\usepackage{calc}           % perform arithmetic on the arguments
+\usepackage{xspace}         % commands that appear not to eat spaces
+\usepackage{enumitem}       % control layout of itemize, enumerate
+\usepackage{ulem}           % \ul underline command
+\usepackage{numprint}       % prints numbers with a separator every three digits
+\usepackage{color}          % provides both foreground/background colour management
+\usepackage{caption}        % provides many ways to customise the captions in floating environments
+
+% \usepackage{subfigure}
+
+% \usepackage{wrapfig}
+\usepackage{subcaption}
+% \usepackage{algorithm}
+% \usepackage{algorithmic}
+% \usepackage{verbatim}
+% \usepackage{appendixnumberbeamer}
+% \usepackage{colortbl}
+% \usepackage[scale=2]{ccicons}
+% \usepackage{graphicx} % builds upon the graphics package
+% \usepackage{accents}
+% \usepackage{fixltx2e}
+% \usepackage{relsize}
+% \usepackage{fancybox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Table packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{array}          % extending the array and tabular environments
+\usepackage{multirow}       % create tabular cells spanning multiple rows
+\usepackage{tabularx}       % tabulars with adjustable-width columns
+\usepackage{booktabs}       % professional-quality tables
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Mathematical packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{mathtools}
+\usepackage{amsmath}        % Basic mathematical typography
+\usepackage{amssymb}
+\usepackage{amsthm}         % Basic mathematical environments for proofs etc.
+\usepackage{mathdots}       % dots commands for matrices 
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{physics}        % typesetting equations for physics simpler
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{bibentry}
+\usepackage[round]{natbib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Graphics packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{pgfplots}
+% \pgfplotsset{compat=1.14}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows.meta}
+\usepgfplotslibrary{dateplot}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Graphics packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\bibsection}{}
+\newtheorem{proposition}{Proposition}[section]
+\newcommand{\yt}{\textit{YouTube-8M}\xspace}
+\newcommand{\eg}{\textit{e.g.}\xspace}
+\newcommand{\ie}{\textit{i.e.}\xspace}
+
+\newcommand{\ci}{\mathbf{i}}
+
+\DeclareMathOperator*{\lip}{Lip}
+\DeclareMathOperator*{\lipbound}{LipBound}
+
+\newcommand{\seqidx}{h}
+\newcommand{\seqsetN}{N}
+\newcommand{\seqsetM}{M}
+
+% cin et cout
+\newcommand{\cin}{cin}
+\newcommand{\cout}{cout}
+
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+% norms
+\newcommand{\lone}{\ensuremath \ell_1}
+\newcommand{\ltwo}{\ensuremath \ell_2}
+\newcommand{\linf}{\ensuremath \ell_\infty}
+
+% command for sets
+\newcommand{\Nbb}{{\ensuremath \mathbb{N}}}
+\newcommand{\Zbb}{{\ensuremath \mathbb{Z}}}
+\newcommand{\Rbb}{{\ensuremath \mathbb{R}}}
+\newcommand{\Cbb}{{\ensuremath \mathbb{C}}}
+
+% expected value
+\newcommand{\Ebb}{\ensuremath \mathbb{E}}
+
+% command for matrices
+\newcommand{\Amat}{\ensuremath \mathbf{A}}
+\newcommand{\Bmat}{\ensuremath \mathbf{B}}
+\newcommand{\Cmat}{\ensuremath \mathbf{C}}
+\newcommand{\Dmat}{\ensuremath \mathbf{D}}
+\newcommand{\Emat}{\ensuremath \mathbf{E}}
+\newcommand{\Fmat}{\ensuremath \mathbf{F}}
+\newcommand{\Gmat}{\ensuremath \mathbf{G}}
+\newcommand{\Hmat}{\ensuremath \mathbf{H}}
+\newcommand{\Imat}{\ensuremath \mathbf{I}}
+\newcommand{\Jmat}{\ensuremath \mathbf{J}}
+\newcommand{\Kmat}{\ensuremath \mathbf{K}}
+\newcommand{\Lmat}{\ensuremath \mathbf{L}}
+\newcommand{\Mmat}{\ensuremath \mathbf{M}}
+\newcommand{\Nmat}{\ensuremath \mathbf{N}}
+\newcommand{\Omat}{\ensuremath \mathbf{O}}
+\newcommand{\Pmat}{\ensuremath \mathbf{P}}
+\newcommand{\Qmat}{\ensuremath \mathbf{Q}}
+\newcommand{\Rmat}{\ensuremath \mathbf{R}}
+\newcommand{\Smat}{\ensuremath \mathbf{S}}
+\newcommand{\Tmat}{\ensuremath \mathbf{T}}
+\newcommand{\Umat}{\ensuremath \mathbf{U}}
+\newcommand{\Vmat}{\ensuremath \mathbf{V}}
+\newcommand{\Wmat}{\ensuremath \mathbf{W}}
+\newcommand{\Xmat}{\ensuremath \mathbf{X}}
+\newcommand{\Ymat}{\ensuremath \mathbf{Y}}
+\newcommand{\Zmat}{\ensuremath \mathbf{Z}}
+
+% command for matrices
+\newcommand{\avec}{\ensuremath \mathbf{a}}
+\newcommand{\bvec}{\ensuremath \mathbf{b}}
+\newcommand{\cvec}{\ensuremath \mathbf{c}}
+\newcommand{\dvec}{\ensuremath \mathbf{d}}
+\newcommand{\evec}{\ensuremath \mathbf{e}}
+\newcommand{\fvec}{\ensuremath \mathbf{f}}
+\newcommand{\gvec}{\ensuremath \mathbf{g}}
+\newcommand{\hvec}{\ensuremath \mathbf{h}}
+\newcommand{\ivec}{\ensuremath \mathbf{i}}
+\newcommand{\jvec}{\ensuremath \mathbf{j}}
+\newcommand{\kvec}{\ensuremath \mathbf{k}}
+\newcommand{\lvec}{\ensuremath \mathbf{l}}
+\newcommand{\mvec}{\ensuremath \mathbf{m}}
+\newcommand{\nvec}{\ensuremath \mathbf{n}}
+\newcommand{\ovec}{\ensuremath \mathbf{o}}
+\newcommand{\pvec}{\ensuremath \mathbf{p}}
+\newcommand{\qvec}{\ensuremath \mathbf{q}}
+\newcommand{\rvec}{\ensuremath \mathbf{r}}
+\newcommand{\svec}{\ensuremath \mathbf{s}}
+\newcommand{\tvec}{\ensuremath \mathbf{t}}
+\newcommand{\uvec}{\ensuremath \mathbf{u}}
+\newcommand{\vvec}{\ensuremath \mathbf{v}}
+\newcommand{\wvec}{\ensuremath \mathbf{w}}
+\newcommand{\xvec}{\ensuremath \mathbf{x}}
+\newcommand{\yvec}{\ensuremath \mathbf{y}}
+\newcommand{\zvec}{\ensuremath \mathbf{z}}
+
+% matrix brackets
+\newcommand{\leftmatrix}{\begin{pmatrix}}
+\newcommand{\rightmatrix}{\end{pmatrix}}
+\newcommand{\leftmat}{\left(}
+\newcommand{\rightmat}{\right)}
+
+% circulant & diagonal
+\newcommand{\circulant}{\ensuremath \mathrm{circ}}
+\newcommand{\diagonal}{\ensuremath \mathrm{diag}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Debugging
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\todo}[1]{\textcolor{red}{\textbf{TODO:} #1\xspace}}
+
+

@@ -1,0 +1,56 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion \& Future Work}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conclusion \& Future work}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ 
+  \begin{block}{Diagonal Circulant Neural Network}
+  \begin{itemize}
+    \item We proposed the use of a matrix decomposition into diagonal and circulant matrices in Deep Learning settings
+    \item We applied have applied this structure for large scale video classification
+    \item We showed that this method allows a good compression rate without an important impact on the accuracy. 
+  \end{itemize}
+  \end{block}
+
+  \begin{block}{Lipschitz Bound of Convolutional Layers}
+  \begin{itemize}
+    \item We introduced a new bound on the Lipschitz constant of convolutional layers that is both accurate and efficient to compute;
+    \item We used this bound to regularize the Lipschitz constant of neural networks;
+    \item We showed that it increases the robustness of the trained networks to adversarial attacks;
+  \end{itemize}
+  \end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Lipschitz Regularization -- Limitation of the approach}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  % We can observe an increase in the robustness of the classifier with our Lipschitz Regularization. 
+  % However, \textbf{we don't have any guarantee} that the global Lipschitz of the network is decreasing.
+
+  Recent works (\cite{scaman2018lipschitz, NIPS2019_9319, latorre2020lipschitz}) have tried to devise algorithms to compute the Lipschitz constant of a Neural Network but these techniques are difficult to implement for neural networks with more than one or two layers.
+
+  \begin{block}{Question}
+   Can we leverage the block-Toeplitz structure of convolution to devise fast and accurate algorithm to compute the Lipschitz constant of Neural Networks ? 
+  \end{block}
+
+
+\end{frame}
+
+% \begin{frame}{Tight bound of the global Lipschitz ?}
+%
+% It has been shown \citet{scaman2018lipschitz} that we can upper bound the global Lipschitz of a Neural Network as follows:
+% \begin{equation}
+%     \text{Lip}(\mathcal{N}) \leq
+%   \max_{\forall i,\ \sigma_i \in [0, 1]^{n_i}} \norm{ \Wmat_\ell \text{diag}(\sigma_{\ell-1}) \Wmat_{k-1} \cdots \textrm{diag}(\sigma_1) \Wmat_1 }_2
+% \end{equation}
+%
+% \paragraph{Question} Can we leverage the generating functions of doubly-block Toeplitz matrices to upper bound and compute the term:
+%
+% \end{frame}
+
+

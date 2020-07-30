@@ -1,0 +1,20 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Appendix}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Efficient Matrix-vector product with Circulant Matrices}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  A circulant matrix $\Cmat \in \Rbb^{n \times n}$ such as $\Cmat = \circulant (\cvec)$, with $\cvec \in \Rbb^n$ can be diagonalized by the Discrete Fourier Transform:
+  \begin{equation*}
+      \Cmat = \Wmat^{-1} \Lambda \Wmat
+  \end{equation*}
+  where $\Wmat = \frac{1}{\sqrt{n}} \left( \omega^{jk} \right)_{j,k = 0, \dots, n-1}$ with $\omega$ being the $n^{th}$ root of unity, $\Lambda$ is a diagonal matrix with the eigenvalues of the matrix $\Cmat$ and the eigenvalues of the matrix $\Cmat$ can correspond to $\Wmat \cvec$. 
+
+  Therefore, thanks to the convolution theorem, matrix-vector multiplication can be done efficiently with the \textbf{Fast Fourier Transform} as follows:
+  \begin{equation*}
+    \Cmat \xvec = \mathrm{IDFT}( \mathrm{DFT}(\cvec) * \mathrm{DFT}(\xvec) )
+  \end{equation*}
+  where the multiplication is performed elements-wise. 
+\end{frame}
