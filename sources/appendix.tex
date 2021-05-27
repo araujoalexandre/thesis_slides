@@ -2,6 +2,8 @@
 \section{Appendix}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Efficient Matrix-vector product with Circulant Matrices}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -17,4 +19,99 @@
     \Cmat \xvec = \mathrm{IDFT}( \mathrm{DFT}(\cvec) * \mathrm{DFT}(\xvec) )
   \end{equation*}
   where the multiplication is performed elements-wise. 
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Adversarial attacks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{minipage}{\textwidth}
+   \centering
+   An \textbf{adversarial attack} refers to a small change of an input maliciously designed to fool the result of a neural network. 
+  \end{minipage}
+  \vspace{0.7cm}
+
+  \only<1>{
+    \begin{minipage}{\textwidth}
+      \centering
+      \begin{overpic}[trim=0 1.2cm 0 0.3cm,clip,width=0.9\textwidth]{images/ExampleAdversarialCatDog.pdf}
+	\put (7.5, 19) {
+	  \footnotesize Image
+	}
+	\put (3.5, -3) {
+	  \footnotesize Label = ``cat''
+	}
+	\put (25, -2) {
+	  \begin{tikzpicture}
+	    \draw[color=white,fill] (0,0) -- (8,0) -- (8,2.5) -- (0,2.5) -- (0,0);
+	  \end{tikzpicture}
+	 }
+      \end{overpic}
+    \end{minipage}
+  }
+
+  \only<2>{
+    \begin{minipage}{\textwidth}
+      \centering
+      \begin{overpic}[trim=0 1.2cm 0 0.3cm,clip,width=0.9\textwidth]{images/ExampleAdversarialCatDog.pdf}
+	\put (7.5, 19) {
+	  \footnotesize Image
+	}
+	\put (39.5, 19) {
+	  \footnotesize Adversarial Perturbation
+	}
+	\put (3.5, -3) {
+	  \footnotesize Label = ``cat''
+	}
+      \put (67, -2) {
+	\begin{tikzpicture}
+	  \draw[color=white,fill] (0,0) -- (3.1,0) -- (3.1,1.9) -- (0,1.9) -- (0,0);
+	\end{tikzpicture}
+       }
+      \end{overpic}
+    \end{minipage}
+  }
+
+  \only<3-5>{
+    \begin{minipage}{\textwidth}
+      \centering
+      \begin{overpic}[trim=0 1.2cm 0 0.3cm, clip, width=0.9\textwidth]{images/ExampleAdversarialCatDog.pdf}
+	\put (7.5, 19) {
+	  \footnotesize Image
+	}
+	\put (39.5, 19) {
+	  \footnotesize Adversarial Perturbation
+	}
+	\put (78, 19) {
+	  \footnotesize Adversarial Image
+	}
+	\put (3.5, -3) {
+	  \footnotesize Label = ``cat''
+	}
+	\put (80, -3) {
+	  \footnotesize Label = ``dog''
+	}
+      \end{overpic}
+    \end{minipage}
+  }
+
+  \vspace{0.15cm}
+  \visible<4-5>{
+    \begin{itemize}
+      \item[$\bullet$] \orangebold{Numerous} methods exist to craft an \orangebold{adversarial perturbation};
+      \item[$\bullet$] The best attacks reduce the accuracy of an undefended model to \orangebold{0\%};
+    \end{itemize}
+  }
+
+  \vspace{0.5cm}
+  \visible<5>{
+    \begin{mdframed}[linecolor=OrangePSL,linewidth=1pt]
+      \centering
+      Adversarial examples poses a growing societal problem as more and more machine learning models are deployed into critical-decision systems.
+    \end{mdframed}
+  }
+
 \end{frame}

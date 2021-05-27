@@ -1,56 +1,129 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Conclusion \& Future Work}
+\section{Conclusion \& Perspectives}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Conclusion \& Future work}
+\begin{frame}{Conclusion}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- 
-  \begin{block}{Diagonal Circulant Neural Network}
   \begin{itemize}
-    \item We proposed the use of a matrix decomposition into diagonal and circulant matrices in Deep Learning settings
-    \item We applied have applied this structure for large scale video classification
-    \item We showed that this method allows a good compression rate without an important impact on the accuracy. 
+    \item[\orangebold{1.}] <1-> \textbf{Compact Neural Networks}
+    \small{
+    \begin{itemize}
+      \item[$\bullet$] <2-> We built compact networks with Diagonal and Circulant Matrices; 
+      \item[$\bullet$] <3-> We studied their expressivity and showed that they are universal approximators;
+      \item[$\bullet$] <4-> We trained these networks on large scale video classification task.
+    \end{itemize}}
+    \vspace{0.5cm}
+    \item[\orangebold{2.}] <5-> \textbf{Improved Robustness of CNNs}
+      \small{
+      \begin{itemize}
+        \item[$\bullet$] <6-> We devised an upper bound on the singular values of convolutional layers.
+        \item[$\bullet$] <7-> We proposed an efficient algorithm to compute this upper bound.
+        \item[$\bullet$] <8-> We proposed a new regularization scheme to improve adversarial robustness.
+      \end{itemize}}
   \end{itemize}
-  \end{block}
-
-  \begin{block}{Lipschitz Bound of Convolutional Layers}
-  \begin{itemize}
-    \item We introduced a new bound on the Lipschitz constant of convolutional layers that is both accurate and efficient to compute;
-    \item We used this bound to regularize the Lipschitz constant of neural networks;
-    \item We showed that it increases the robustness of the trained networks to adversarial attacks;
-  \end{itemize}
-  \end{block}
 
 \end{frame}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Lipschitz Regularization -- Limitation of the approach}
+\begin{frame}{Perspectives}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  % We can observe an increase in the robustness of the classifier with our Lipschitz Regularization. 
-  % However, \textbf{we don't have any guarantee} that the global Lipschitz of the network is decreasing.
+  {\small
+    \textbf{On compact neural networks:} 
+    \begin{itemize}[leftmargin=0.2cm]
+      \item <2-> Recent works have devised very compact and accurate CNNs ({\color{SkyBlue}{\cite{tan2019efficientnet}}});
+      \item <3-> Recent models with billions of parameters have been designed: Transformer Networks ({\color{SkyBlue}{\cite{vaswani2017attention}}});
+      \begin{itemize}
+	\item[\orange{$\rightarrow$}] <4-> Study if this amount of parameters is useful;
+	\item[\orange{$\rightarrow$}] <5-> Replace the dense matrices of Transformer networks with structured ones. 
+      \end{itemize}
+    \end{itemize}
+  }
 
-  Recent works (\cite{scaman2018lipschitz, NIPS2019_9319, latorre2020lipschitz}) have tried to devise algorithms to compute the Lipschitz constant of a Neural Network but these techniques are difficult to implement for neural networks with more than one or two layers.
+  \vspace{0.5cm}
+  {\small
+    \visible<6->{\textbf{On robustness to adversarial examples:}}
+    \begin{itemize}[leftmargin=0.2cm]
+      \item <7-> Adversarial examples are hard to mitigate (AT: $\sim$ 47\% accuracy under attack);
+      \item <8-> Recent work have proposed method for certified accuracy ({\color{SkyBlue}{\cite{cohen2019certified}}});
+      \begin{itemize}
+	\item[\orange{$\rightarrow$}] <9-> Study if the Lipschitz regularization can boost the certified accuracy; 
+	\item[\orange{$\rightarrow$}] <10-> Study we can better characterize the Lipschitz constant of neural networks given their architecture. 
+      \end{itemize}
+    \end{itemize}
+  }
 
-  \begin{block}{Question}
-   Can we leverage the block-Toeplitz structure of convolution to devise fast and accurate algorithm to compute the Lipschitz constant of Neural Networks ? 
-  \end{block}
 
 
 \end{frame}
 
-% \begin{frame}{Tight bound of the global Lipschitz ?}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Published works}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  {\small
+  \begin{itemize}[leftmargin=0pt]
+    \item \textbf{On compact neural networks:} \vspace{0.1cm}
+    \begin{itemize}[leftmargin=0.3cm]
+      \item \textit{Understanding and Training Deep Diagonal Circulant Neural Networks}
+      \item \citet{araujo2020understanding} \hfill \textbf{ECAI 2020}\vspace{0.1cm}
+      \item \textit{Training Compact Deep Learning Models for Video Classification using Circulant Matrices}
+      \item \citet{araujo2018training} \hfill \textbf{Workshop at ECCV 2018}
+    \end{itemize} \vspace{0.3cm}
+
+    \item \textbf{On robustness to adversarial examples:} \vspace{0.1cm}
+    \begin{itemize}[leftmargin=0.3cm]
+      \item \textit{On Lipschitz Regularization of Convolutional Layers using Toeplitz Matrix Theory}
+      \item \citet{araujo2021lipschitz} \hfill \textbf{AAAI 2021}\vspace{0.1cm}
+      \item \textit{Advocating for Multiple Defense Strategies against Adversarial Examples}
+      \item \citet{araujo2020advocating} \hfill \textbf{Workshop at ECML 2020}\vspace{0.1cm}
+      \item \textit{Theoretical evidence for robustness through randomization}
+      \item \citet{pinot2019theoretical} \hfill \textbf{NeurIPS 2019}
+    \end{itemize}
+  \end{itemize}
+  }
+
+
+\end{frame}
+
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Lipschitz Regularization -- Limitation of the approach}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% It has been shown \citet{scaman2018lipschitz} that we can upper bound the global Lipschitz of a Neural Network as follows:
-% \begin{equation}
-%     \text{Lip}(\mathcal{N}) \leq
-%   \max_{\forall i,\ \sigma_i \in [0, 1]^{n_i}} \norm{ \Wmat_\ell \text{diag}(\sigma_{\ell-1}) \Wmat_{k-1} \cdots \textrm{diag}(\sigma_1) \Wmat_1 }_2
-% \end{equation}
+%   Recent works (\cite{scaman2018lipschitz, NIPS2019_9319, latorre2020lipschitz}) have tried to devise algorithms to compute the Lipschitz constant of a Neural Network but these techniques are difficult to implement for neural networks with more than one or two layers.
 %
-% \paragraph{Question} Can we leverage the generating functions of doubly-block Toeplitz matrices to upper bound and compute the term:
+%   \begin{block}{Question}
+%     Can we leverage the block-Toeplitz structure of convolution to devise fast and accurate algorithm to compute the Lipschitz constant of Neural Networks ? 
+%   \end{block}
 %
 % \end{frame}
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Tight bound of the global Lipschitz ?}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   It has been shown \citet{scaman2018lipschitz} that we can upper bound the global Lipschitz of a Neural Network as follows:
+%   \begin{equation}
+%       \text{Lip}(\mathcal{N}) \leq
+%     \max_{\forall i,\ \sigma_i \in [0, 1]^{n_i}} \norm{ \Wmat_\ell \text{diag}(\sigma_{\ell-1}) \Wmat_{k-1} \cdots \textrm{diag}(\sigma_1) \Wmat_1 }_2
+%   \end{equation}
+%
+%   \paragraph{Question} Can we leverage the generating functions of doubly-block Toeplitz matrices to upper bound and compute the term:
+%
+% \end{frame}
+
+
+
 
 

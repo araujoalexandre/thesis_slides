@@ -1,4 +1,4 @@
-\documentclass[9pt]{beamer}
+\documentclass[usenames,dvipsnames,9pt]{beamer}
 \usetheme[
     progressbar=frametitle,
     block=fill
@@ -6,37 +6,41 @@
 
 \input{sources/definitions}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Title page
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Contributions on Deep Neural Networks with Toeplitz Matrices: Compression and Robustness}
+\title{\normalsize{Compact and Robust Deep Neural Networks with Toeplitz Matrices}}
+\subtitle{\normalsize{A structured matrix approach to Deep Learning}}
+\date{01/06/2021}
 \author{Alexandre Araujo}
-\date{}
-\institute{
-  Université Paris-Dauphine, PSL Research University, CNRS, LAMSADE \\[1em]
-  Wavestone, Paris, France
-}
+\institute{Universit\'e Paris-Dauphine-PSL}
 
 \titlegraphic{
-\vspace{21em}
-\begin{columns}
-  \begin{column}{.18\textwidth}
-  \includegraphics[trim={0 5cm 0 5cm}, width=2cm]{logos/PSL.png}
-  \end{column}
-  \begin{column}{.18\textwidth}
-  \includegraphics[width=2cm]{logos/dauphine.png}
-  \end{column}
-  \begin{column}{.18\textwidth}
-  \includegraphics[width=2cm]{logos/lamsade.jpg}
-  \end{column}
-  \begin{column}{.14\textwidth}
-  \includegraphics[width=1cm]{logos/cnrs.png}
-  \end{column}
-  \begin{column}{.22\textwidth}
-  \includegraphics[trim={10cm 0 10cm 0}, width=2cm]{logos/wavestone.png}
-  \end{column}
-\end{columns}
+  \vspace{22em}
+  \begin{minipage}{\textwidth}
+    \centering
+    % \begin{column}{.18\textwidth}
+    %   \fbox{\includegraphics[trim={0 5cm 0 5cm}, clip, width=2cm]{logos/PSL.png}
+    %   }
+    % \end{column}
+    \begin{minipage}{.26\textwidth}
+      \includegraphics[trim={0.1cm 0 0.2cm 0},clip,scale=0.08]{logos/Dauphine_logo_2019.png}
+    \end{minipage}
+    \begin{minipage}{.22\textwidth}
+      \centering
+      \includegraphics[scale=0.15]{logos/lamsade.jpg}
+    \end{minipage}
+    \begin{minipage}{.12\textwidth}
+      \centering
+      \includegraphics[trim={0.6cm 1.3cm 1.3cm 0.3cm},clip,scale=0.1]{logos/logomiles_small.pdf}
+    \end{minipage}
+    \begin{minipage}{.1\textwidth}
+      \centering
+      \includegraphics[scale=0.02]{logos/cnrs.png}
+    \end{minipage}
+    \begin{minipage}{.22\textwidth}
+      \centering
+      \includegraphics[trim={3.1cm 0 3.7cm 0},clip,scale=0.05]{logos/wavestone.png}
+    \end{minipage}
+  \end{minipage}
 }
 
 
@@ -46,31 +50,31 @@
 
 \begin{document}
 
-  \begin{frame}
-      \titlepage
-  \end{frame}
-  \begin{frame}{Overview}
-      \tableofcontents
-  \end{frame}
+  \maketitle
 
   \input{sources/ch1-introduction}
-  \input{sources/ch2-diagonal_circulant}
-  \input{sources/ch3-lipschitz_bound}
-  \input{sources/ch4-conclusion}
+  % \input{sources/ch2-diagonal_circulant}
+  % \input{sources/ch3-lipschitz_bound}
+  % \input{sources/ch4-conclusion}
+
+  \section{Questions}
 
   \begin{frame}
     \centering
     \Huge Thank You
   \end{frame}
 
-  \input{sources/appendix}
+  % \input{sources/appendix}
 
   \section{References}
   \begin{frame}[noframenumbering, allowframebreaks]{References}
-  \bibliography{references}
-  \bibliographystyle{apalike}
+    \bibliography{bibliography}
+    \bibliographystyle{plainnat}
+    \textbf{Picture License:} Pictures and photos in slides xxx and xxx have been designed by xxx
   \end{frame}
 
-
 \end{document}
+
+
+
 

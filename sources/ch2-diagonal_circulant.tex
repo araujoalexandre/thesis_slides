@@ -1,96 +1,42 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Diagonal Circulant Neural Networks}
+\section{\orangebold{Part 1.} Compact Neural Networks with Diagonal and Circulant Matrices}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Expressivity of Diagonal Circulant Neural Networks}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{Model compression for Deep Learning}
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%   \textbf{Constraining the weight representation}
-%   \begin{itemize}
-%     \item Floating variable with limited precision \cite{Gupta:2015:DLL:3045118.3045303}
-%     \item Quantization \cite{courbariaux2015binaryconnect,MellempudiKM0KD17, rastegariECCV16}
-%     \item Hashing techniques \cite{chen2015hashing}
-%   \end{itemize}
-%    
-%   \textbf{Matrix factorization}
-%   \begin{itemize}
-%     \item Use of low rank matrices and decomposition as weights matrices \cite{NIPS2013_5025, Jaderberg2014SpeedingUC, 8099498}
-%   \end{itemize}
-%
-%   \textbf{Imposing structures on weight matrices}
-%   \begin{itemize}
-%       \item Use structured matrices instead of Dense Matrices \cite{7410684,NIPS2015_5869}
-%   \end{itemize}
-%
-% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Circulant matrices for Deep Learning}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  A $n \times n$ circulant matrix $\Cmat$ is a matrix  where each row is a cyclic right shift of the previous one as illustrated below.
-  \begin{equation*}
-      \Cmat = \circulant (\cvec) = 
-      \begin{pmatrix} \vspace{0.1cm}
-      c_0 & c_1 & c_2 & \dots & c_{n-1} \\ \vspace{0.1cm}
-      c_{n-1} & c_0 & c_2  & & c_{n-2} \\ \vspace{0.1cm}
-      c_{n-2} & c_{n-1} & c_{0} & & c_{n-3} \\ \vspace{0.1cm}
-      \vdots & & & \ddots  & \vdots \\ \vspace{0.1cm}
-      c_1 & c_2 & c_3 & & c_0
-      \end{pmatrix}
-  \end{equation*}
-  \begin{block}{Advantages:}
+  Recall the Fully-Connected layer:
+  \begin{equation}
+    \xvec \mapsto \rho\left( {\color<2->{OrangePSL}{\Wmat}} \xvec + \bvec \right)
+  \end{equation}
+
+  \vspace{-0.4cm}
+  where $\Wmat \in \Rbb^{n \times n}$, $\bvec \in \Rbb^n$.
+
+  \vspace{0.3cm}
+  \visible<2->{
+    \begin{mdframed}[linecolor=OrangePSL,linewidth=1pt]
+      \centering
+      % \textbf{Goal}: We want to reduce the number of parameters of the layer. \\
+       Can we replace the dense matrix $\Wmat$ with a structured one ? 
+    \end{mdframed}
+  } 
+   
+  \vspace{0.3cm}
+  \visible<3->{
+    Circulant matrices have numerous advantages:
     \begin{itemize}
-      \small
-      \item[$\bullet$] A $n \times n$ circulant matrix can be \textbf{compactly represented in memory} using only $n$ real values.
-      \item[$\bullet$] Multiplying a circulant matrix $\Cmat$ by a vector $\xvec$ \textbf{can be done efficiently in the Fourier domain}
+	\item[$\bullet$] <3-> A circulant matrix can be \orangebold{compactly represented in memory};
+	\item[$\bullet$] <3-> The matrix-vector product with a circulant matrix \orangebold{can be done efficiently in the Fourier domain}
+        \item[$\Rightarrow$] <4-> They are not expressive: circulant matrices are closed under product.
     \end{itemize}
-  \end{block}
-  \begin{block}{Limits:}
-    \begin{itemize}
-      \small
-      \item[$\bullet$] The product of circulant matrices is not expressive: circulant matrices are closed under product
-    \end{itemize}
-  \end{block}
+  }
+
 
 \end{frame}
-
-
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{Efficient Matrix-vector product with Circulant Matrices}
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     
-%   A circulant matrix $\Cmat \in \Rbb^{n \times n}$ such as $\Cmat = \circulant (\cvec)$, with $\cvec \in \Rbb^n$ can be diagonalized by the Discrete Fourier Transform:
-%   \begin{equation*}
-%       \Cmat = \Wmat^{-1} \Lambda \Wmat
-%   \end{equation*}
-%   where $\Wmat = \frac{1}{\sqrt{n}} \left( \omega^{jk} \right)_{j,k = 0, \dots, n-1}$ with $\omega$ being the $n^{th}$ root of unity, $\Lambda$ is a diagonal matrix with the eigenvalues of the matrix $\Cmat$ and the eigenvalues of the matrix $\Cmat$ can correspond to $\Wmat \cvec$. 
-%   
-%   Therefore, thanks to the convolution theorem, matrix-vector multiplication can be done efficiently with the \textbf{Fast Fourier Transform} as follows:
-%   \begin{equation*}
-%     \Cmat \xvec = \mathrm{IDFT}( \mathrm{DFT}(\cvec) * \mathrm{DFT}(\xvec) )
-%   \end{equation*}
-%   where the multiplication is performed elements-wise. 
-% \end{frame}
-
-
-% \begin{frame}{Circulant matrices for Deep Learning}
-
-% The fully connected layers are then represented as follows:
-% \begin{equation*}
-% 	h(x) = \phi\left(\left[\prod_{i=1}^{k} D^{(i)} C^{(i)}\right]x + b\right)
-% \end{equation*}
-% \noindent
-% where the parameters of each matrix $D^{(i)}$ and $C^{(i)}$ are trained using a gradient based optimization algorithm, and $k$ defines the number of factors we choose for the training. 
-% \end{frame}
 
 
 
@@ -98,17 +44,40 @@
 \begin{frame}{Expressivity of the product of diagonal and circulant matrices}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- 
-  \begin{theorem}[Reformulation from \citet{Huhtanen2015}] 
-    For every matrix $\Amat \in \Cbb^{n \times n}$, for any $\epsilon > 0$, there exists a sequence of matrices $\Bmat_1 \cdots \Bmat_{2n-1}$ where $\Bmat_i$ is a circulant matrix if $i$ is odd, and a diagonal matrix otherwise, such that $\norm{\Bmat_1 \Bmat_2 \cdots \Bmat_{2n-1} - \Amat} < \epsilon$.
-  \end{theorem}
+  \begin{minipage}{\textwidth}
+    \centering
+    Combining circulant matrices with \orangebold{diagonal matrices} improve the expressivity.
+  \end{minipage}
+  \vspace{0.05cm}
 
-  \vspace{0.5cm}
+  \visible<2->{
+    \begin{theorem}[Reformulation from {\color{SkyBlue}{\citet{huhtanen2015factoring}}}] 
+      For every matrix $\Amat \in \Cbb^{n \times n}$, for any $\epsilon > 0$, there exists a sequence of circulant matrices and a sequence of diagonal matrices such that 
+      \begin{equation}
+	\norm{\prod_{i=1}^{n+1} \Dmat^{(i)} \Cmat^{(i)} - \Amat}_{\mathrm{F}} < \epsilon \enspace.
+      \end{equation}
+    \end{theorem}
+  }
 
-  \begin{itemize}
-    \item[$\bullet$] The decomposition needs more values that $n^2$
-    \item[$\bullet$] The theorem does not provide any insights regarding the expressive power of $m$ diagonal-circulant factors when $m$ is much lower than $2n - 1$
+  {\small
+  \visible<3->{\textbf{Advantages}}
+  \begin{itemize}[parsep=0pt,leftmargin=15pt]
+    \nointerlineskip
+    \item[$\bullet$] <3-> Neural networks with Diagonal and Circulant Layer are \textbf{universal approximators}; 
   \end{itemize}
+
+  \visible<4->{\textbf{Limits}}
+  \begin{itemize}[parsep=0pt,leftmargin=15pt]
+    \nointerlineskip
+    \item[$\bullet$] <4-> The decomposition needs more values that $n^2$
+    \item[$\bullet$] <5-> The theorem does not provide any insights regarding the expressive power of $m$ diagonal-circulant factors when $m$ is much lower than $n + 1$
+  \end{itemize}
+  }
+
+  % By combining this result and the universal approximation theorem of Neural Network ({\color{SkyBlue}{\cite{hanin2017universal}}}), we have the following result:
+  % \begin{theorem}
+  %   Bounded width DCNNs are \textbf{universal approximators} 
+  % \end{theorem}
 
 
   % This theorem is of little use to understand the expressive power of diagonal-circulant matrices when they are used in deep neural networks:
@@ -123,59 +92,62 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Relation between diagonal circulant matrices and low rank matrices}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-      
-  \begin{theorem}[Rank-based circulant decomposition] Let $\Amat \in \mathbb{C}^{n \times n}$ be
-  a matrix of rank at most $k$. Assume that $n$ can be divided by $k$. For
-  any $\epsilon > 0$, there exists a sequence of $4k+1$ matrices $\Bmat_{1}, \dots, \Bmat_{4k+1},$ where $\Bmat_{i}$ is a circulant matrix if $i$ is odd, and a diagonal matrix otherwise, such that $\norm{\Bmat_1\Bmat_2 \dots \Bmat_{4k+1} - \Amat} < \epsilon$
-  \end{theorem}
 
-  \vspace{0.5cm}
+  \begin{minipage}{\textwidth}
+    \textbf{Question:} Can we devise a expressivity result with a product of less than $n + 1$ diagonal-circulant factors ?
+  \end{minipage}
 
-  % A direct consequence of this theorem, is that if the number of diagonal-circulant factors is set to a value $K$, we can represent all linear transform whose rank is $\frac{K - 1}{4}$.
+  \visible<2->{
+    \begin{theorem}[Rank-based circulant decomposition]
+      For every matrix $\Amat \in \Cbb^{n \times n}$ of rank $r$, for any $\epsilon > 0$, there exists a sequence of $2r+1$ diagonal-circulant factors such that: 
+      \begin{equation}
+	\norm{\prod_{i=1}^{2r+1} \Dmat^{(i)} \Cmat^{(i)} - \Amat}_{\mathrm{F}} < \epsilon \enspace.
+      \end{equation}
+    \end{theorem}
+  }
 
-  \begin{itemize}
-    \item[$\Rightarrow$] If the number of diagonal-circulant factors is set to a value $K$, we can represent all linear transform whose rank is $\frac{K - 1}{4}$.
-  \end{itemize}
+  \visible<3->{
+    \textbf{Remark}: If the number of diagonal-circulant factors is set to a value $k$, we can represent all linear transform whose rank is $\frac{k - 1}{2}$.
+  }
+
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Diagonal-Circulant Neural Network}
+\begin{frame}{Idea of the proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  Let $\Amat \in \Cbb^{n \times n}$ be a matrix of rank $r$ and let $\Amat = \Umat \boldsymbol{\Sigma} \Vmat^*$ be the singular value decomposition of the matrix $\Amat$
+  \begin{equation*}
+    \Amat = \scalebox{0.5}{\input{sources/svd.tex}}
+  \end{equation*}
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Diagonal-Circulant Layer}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   We replace the weight matrices of Fully-Connected layers by a product of Diagonal and Circulant matrices :
 
-  \begin{block}{Fully-Connected layer}
-  \begin{equation*}
-      \xvec \mapsto \Wmat \xvec + \bvec
-  \end{equation*}
-  where $\xvec \in \Rbb^n$, $\bvec \in \Rbb^n$, $\Wmat \in \Rbb^{n \times n}$.
-  \end{block}
+  \begin{equation}
+    \xvec \mapsto \left[ \orange{ \prod_{i=1}^{k} \Dmat^{(i)} \Cmat^{(i)} } \right] \xvec + \bvec
+  \end{equation}
+  where
+  \begin{itemize}
+    \item[$\bullet$] $\xvec \in \Rbb^n$, $\bvec \in \Rbb^n$,
+    \item[$\bullet$] $\Dmat^{(i)} \in \Rbb^{n \times n}$ is a diagonal matrix,
+    \item[$\bullet$] $\Cmat^{(i)} \in \Rbb^{n \times n}$ is a circulant matrix,
+    \item[$\bullet$] $k$ is a user defined parameter controlling the expressivity.
+  \end{itemize}
 
-  \begin{block}{Diagonal-Circulant layer}
-  \begin{equation*}
-      \xvec \mapsto \left[ \prod_{i=0}^{k} \Dmat_i \Cmat_i \right] \xvec + \bvec
-  \end{equation*}
-  where $\xvec \in \Rbb^n$, $\bvec \in \Rbb^n$, $\Dmat_i \in \Rbb^{n \times n}$ is a diagonal matrix, $\Cmat_i \in \Rbb^{n \times n}$ is a circulant matrix, $k$ is a user defined parameter.
-  \end{block}
+  \pause
+  \textbf{Remark:} Instead of defining a parameter $k$ for each Diagonal-Circulant layer, we set them all to $k = 1$ and we adjust the depth of the network.
 
 \end{frame}
-
-
-
-
-
-% \begin{frame}{Diagonal-Circulant Neural Network}
-% Instead of choosing a parameter $k$ for each layer, we study the Diagonal-Circulant architecture:
-% \begin{block}{Diagonal-Circulant neural network}
-%     A diagonal-Circulant neural network of $\ell$ layers is defined as follows:
-%     \begin{equation*}
-%         \mathcal{N}(x) = \phi^{(\ell)}_{\W}_\ell,\bvec_\ell} \circ \phi^{(\ell-1)}_{\Wmat_\ell-1,\bvec_\ell-1} \circ \cdots \circ \phi^{(1)}_{\Wmat_1,\bvec}(x)
-%     \end{equation*}
-%      where for any $i$, $\phi^{(i)}_{\D}_i, \Cmat_i,\bvec_i} := z \mapsto \rho(\Dmat_i \Cmat_i \mathbf{z} + \bvec_i)$, $\mathbf{z}_i \in \Rbb^m$, $\bvec_i \in \Rbb^m$, $\Dmat_i \in \Rbb^{m \times n}$, $\Cmat_i \in \Rbb^{m \times n}$, and $\rho$ some non linear (activation) function.
-% \end{block}
-% \end{frame}
-
 
 
 
@@ -183,43 +155,62 @@
 \begin{frame}{Expressive Power of Diagonal-Circulant Neural Network}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \begin{theorem}[Rank-based expressive power of DCNNs] \label{th:rank-based_dcnn}
-    Let $\mathcal{N}$ be a deep ReLU network of width $n$, depth $L$ and a total rank $k$\footnote{The sum of ranks of the weight matrices}.
-    Let $\mathcal{X} \subset \Cbb^{n}$ be a bounded set.
-    Then, for any $\epsilon>0$, there exists a DCNN with ReLU activation $\mathcal{N}'$ of width $n$ such that $\norm{\mathcal{N}(\xvec) - \mathcal{N}'(\xvec) } < \epsilon$ for all $\xvec \in \mathcal{X}$ and the depth of $\mathcal{N}'$ is bounded by $9k$.
+  \begin{theorem}[Rank-based expressive power of DCNNs]
+    Let $N$ be a neural network of width $n$, depth $p$ and a sum of ranks of the weight matrices $k$.
+    Then, for any $\epsilon>0$, there exists a DCNN $N'$ of width $n$ such that 
+    \begin{equation}
+      \norm{N(\xvec) - N'(\xvec) }_2 < \epsilon
+    \end{equation}
+    and the depth of $N'$ is bounded by $9k$.
   \end{theorem}
 
-  By combining Theorem~\ref{th:rank-based_dcnn} and the universal approximation theorem of Neural Network, we have:
-  \begin{corollary} \label{th:universal}
-    Bounded width DCNNs are \textbf{universal approximators} 
-  \end{corollary}
+  \todo{xxx}
+
+  Let $\Rcal_{k,n}$ be the set of all functions $f:\mathbb{R}^{n}\rightarrow\mathbb{R}^{n}$ representable by deep neural networks of total rank at most $k$ and let $\Ccal_{l,n}$ the set of all functions $f:\Rbb^{n} \rightarrow \Rbb^{n}$ representable by deep diagonal-circulant networks of depth at most $l$, then:
+    \begin{align*}
+      \forall k,\exists l,\forall n\, & \mathcal{R}_{k,n}\varsubsetneq\mathcal{C}_{l,n} \\
+      \forall l,\nexists k,\forall n\, & \mathcal{C}_{l,n}\subseteq\mathcal{R}_{k,n}
+    \end{align*}
+
+  As we can see, the set $\Rcal_{k,n}$ of all the functions representable by a deep neural network of total rank $k$ is strictly included in the set $\Ccal_{9k}$ of all diagonal-circulant neural networks of depth $9k$. 
+
+  \begin{figure}[htb]
+    \scalebox{0.65}{\input{graphs/picture.tex}}
+  \end{figure}
+
+  
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Training of Diagonal-Circulant Neural Networks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  Training diagonal circulant neural networks is hard !!
+
+  other approaches
 
 \end{frame}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Experiments: Large Scale Video Classification}
+\begin{frame}{Training of Diagonal-Circulant Neural Networks}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Experimental Setup}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-  \begin{block}{Dataset: \yt}
-  \begin{itemize}
-    \item 8 millions embedded audio \& video frames
-    \item 3200 classes
-  \end{itemize}
+  \begin{block}{Large Scale Video Classification with the \yt dataset}
+    \begin{itemize}
+      \item 8 millions embedded audio \& video frames
+      \item 3200 classes
+    \end{itemize}
   \end{block}
+
   % The network randomly samples video and audio frames from the input. The sample goes through an embedding layer and is reduced with a Fully Connected layer. The results are then concatenated and classified with a Mixture-of-Experts and a Context Gating layer.
-  State-of-the-art architecture for video classification (\cite{miech2017youtube}).
+  State-of-the-art architecture for video classification ({\color{SkyBlue}{\cite{miech2017learnable}}}).
   \begin{figure}[htb]
     \scalebox{0.65}{\input{graphs/architecture}}
   \end{figure}
-  $\Rightarrow$ This architecture has $5.7$ millions parameters.
+  $\Rightarrow$ This architecture has 5.7 millions parameters.
 
 \end{frame}
 
@@ -228,74 +219,65 @@
 \begin{frame}{Effect of Diagonal-Circulant layers}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \begin{figure}[!htb]
+  \begin{minipage}{\textwidth}
     \centering
-    \scalebox{0.8}{\input{graphs/layers}}
-  \end{figure}
-  % Validation GAP according to the number of epochs for different compact models.
-  $\Rightarrow$ 9.2\% compression rate without loss in accuracy \\	
-  $\Rightarrow$ 72\% compression rate with a loss of 4 points in accuracy
+    Graph representing the trade-off between accuracy and compression rate.
+  \end{minipage}
+  \vspace{0.2cm}
+
+  \only<1>{
+    \begin{minipage}{\textwidth}
+      \centering
+      \scalebox{0.8}{\input{graphs/layers_0}}
+    \end{minipage}
+
+    \vspace{0.3cm}
+    \begin{minipage}{\textwidth}
+      \centering
+      The original architecture achieve an accuracy GAP of 84\%.
+    \end{minipage}
+  }
+
+  \only<2>{
+    \begin{minipage}{\textwidth}
+      \centering
+      \scalebox{0.8}{\input{graphs/layers_1}}
+    \end{minipage}
+
+    \vspace{0.3cm}
+    \begin{minipage}{\textwidth}
+      \centering
+      We achieve \orangebold{9.2\% compression rate} with \orangebold{no loss} in accuracy.
+    \end{minipage}
+  }
+
+  \only<3>{
+    \begin{minipage}{\textwidth}
+      \centering
+      \scalebox{0.8}{\input{graphs/layers_2}}
+    \end{minipage}
+
+    \vspace{0.3cm}
+    \begin{minipage}{\textwidth}
+      \centering
+      We achieve \orangebold{18\% compression rate} with a loss of \orangebold{2 points} in accuracy.
+    \end{minipage}
+  }
+
+  \only<4>{
+    \begin{minipage}{\textwidth}
+      \centering
+      \scalebox{0.8}{\input{graphs/layers_3}}
+    \end{minipage}
+
+    \vspace{0.3cm}
+    \begin{minipage}{\textwidth}
+      \centering
+      We achieve \orangebold{72\% compression rate} with a loss of only \orangebold{4 points} in accuracy.
+    \end{minipage}
+  }
+
+
 \end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{Effect of circulant matrices with different embeddings}
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%   The figures below show the validation GAP of \textmd{compact} and \textit{Dense} fully connected layer with different embeddings according to the number of epochs.
-%   \large
-%   \begin{figure}[!htb]
-%     \centering
-%     \captionsetup{justification=justified}
-%     \scalebox{0.7}{\input{graphs/fc_circulant_embeddings}}
-%   \end{figure}
-% \end{frame}
-
-
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{Results}
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%   % \begin{table}
-%   %   \centering
-%   %   \caption{\small
-%   %      This table shows the GAP score for the \yt dataset with DCNNs.
-%   %      We can see a large increase in the score with deeper networks.}
-%   %   \small
-%   %   \begin{tabular}{lccc}
-%   %     \toprule
-%   %     \textbf{Architecture} & \textbf{\#Weights} &
-%   %     \textbf{GAP@20} \\
-%   %     \hline \\
-%   %     \textit{original} & \textit{5.7M} & \textit{0.773} \\
-%   %     4 DC & 25 410  (\textit{\bf 0.44}) & 0.599   \\
-%   %     32 DC  & 122 178 \textit{(2.11)} & 0.685   \\
-%   %     4 DC + 1 FC & 4.46M \textit{(77)} & \textbf{0.747} \\
-%   %   \hline
-%   %   \end{tabular}
-%   %   \label{table:youtube_agg_xp}
-%   % \end{table}
-%
-%
-%   \begin{table}
-%     \centering
-%     \caption{\small
-%       This table shows the GAP score for the \yt dataset with different layers represented with our DC decomposition.}
-%     \small
-%     \begin{tabular}{lccc}
-%     \toprule
-%     \textbf{Architecture} & \textbf{\#Weights} & \textbf{GAP@20} \\
-%     \hline \\
-%     \textit{original} & \textit{45M} & \textit{0.846} \\
-%     DBoF with DC   & 36M (\textit{80}) & 0.838 \\
-%     FC with DC    & 41M (\textit{91}) & \textbf{0.845} \\
-%     MoE with DC   & 12M (\textit{\bf 26}) & 0.805 \\
-%     \hline
-%     \end{tabular}
-%     \label{table:youtube_full_xp}
-%   \end{table}
-%
-% \end{frame}
-
 
 

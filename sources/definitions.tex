@@ -1,29 +1,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Customize template
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\setbeamercolor{background canvas}{bg=white}
-\setbeamertemplate{frametitle continuation}{}
-\setbeamertemplate{theorems}[numbered]
-\setbeamertemplate{section in toc}[sections numbered]
-\setbeamertemplate{subsection in toc}[subsections numbered]
-
-\AtBeginSubsection[]
-{
-\begin{frame}
-  \frametitle{Table of Contents}
-  \tableofcontents[currentsection,currentsubsection]
-\end{frame}
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Packages
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage[utf8]{inputenc} % allow utf-8 input
-\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+% \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage{url}            % simple URL typesetting
 \usepackage{microtype}      % microtypography
 \usepackage{calc}           % perform arithmetic on the arguments
@@ -33,22 +13,39 @@
 \usepackage{numprint}       % prints numbers with a separator every three digits
 \usepackage{color}          % provides both foreground/background colour management
 \usepackage{caption}        % provides many ways to customise the captions in floating environments
-
-% \usepackage{subfigure}
-
-% \usepackage{wrapfig}
 \usepackage{subcaption}
-% \usepackage{algorithm}
-% \usepackage{algorithmic}
-% \usepackage{verbatim}
-% \usepackage{appendixnumberbeamer}
-% \usepackage{colortbl}
-% \usepackage[scale=2]{ccicons}
-% \usepackage{graphicx} % builds upon the graphics package
-% \usepackage{accents}
-% \usepackage{fixltx2e}
+\usepackage{lmodern}
+
+\usepackage{copyrightbox}
+\usepackage[percent]{overpic}
+\usepackage[export]{adjustbox}
+\usepackage{mdframed}
+\usepackage[super]{nth}
+\usepackage[most]{tcolorbox}
+
+
+% other, check if needed
+% \usepackage{xcolor}
+% \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+% \usepackage{dsfont} % for mathds{1}
+% \usepackage{animate}
+% \usepackage{media9}
+% \usepackage{makecell}
+% \usepackage{graphics}
 % \usepackage{relsize}
 % \usepackage{fancybox}
+% \usepackage[ruled,vlined]{algorithm2e}
+% \usepackage{appendixnumberbeamer}
+% \usepackage[scale=2]{ccicons}
+% \usepackage{fontspec}
+
+% \usefonttheme{professionalfonts} % using non standard fonts for beamer
+% \usefonttheme{serif} % default family is serif
+% \usepackage{fontspec}
+% \setmainfont{Liberation Serif}
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Table packages
@@ -58,6 +55,14 @@
 \usepackage{multirow}       % create tabular cells spanning multiple rows
 \usepackage{tabularx}       % tabulars with adjustable-width columns
 \usepackage{booktabs}       % professional-quality tables
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+% \newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+
+\newsavebox{\mybox}
+\newcolumntype{M}[2]{>{\begin{lrbox}{\mybox}}#1<{\end{lrbox}
+  \onslide<#2>{\unhbox\mybox}}}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Mathematical packages
@@ -86,17 +91,120 @@
 \usepackage{pgfplots}
 % \pgfplotsset{compat=1.14}
 \usepackage{tikz}
+\usepgfplotslibrary{dateplot}
 \usetikzlibrary{positioning}
 \usetikzlibrary{arrows.meta}
-\usepgfplotslibrary{dateplot}
+\usetikzlibrary{arrows,shapes}
+\usetikzlibrary{matrix,decorations.pathreplacing,calc}
+\usetikzlibrary{decorations.text}
+
+\usepackage{tikz}
+  \tikzset{
+    onslide/.code args={<#1>#2}{\only<#1>{\pgfkeysalso{#2}}}, 
+  }
+
+\tikzstyle{every picture}+=[remember picture]
+
+\DeclareMathOperator{\Mcol}{col}
+\DeclareMathOperator{\Mrow}{row}
+\DeclareMathOperator{\Mnull}{null}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Graphics packages
+% Customize template
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \setbeamercolor{background canvas}{bg=white}
+\setbeamertemplate{frametitle continuation}{}
+\setbeamertemplate{theorems}[unnumbered]
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+
+% \AtBeginSubsection[]
+% {
+% \begin{frame}
+%   \frametitle{Table of Contents}
+%   \tableofcontents[currentsection,currentsubsection]
+% \end{frame}
+% }
+
+\renewenvironment{equation}
+  {\begin{equation*}}
+  {\end{equation*}}
+
+
+\usefonttheme{professionalfonts} % using non standard fonts for beamer
+% \usefonttheme{serif} % default family is serif
+% \setmainfont{Liberation Serif}
+
+\definecolor{GreyPSL}{RGB}{100,100,100}
+\definecolor{BluePSL}{RGB}{47,68,134}
+\definecolor{Pimpalert}{RGB}{128,0,197}
+\definecolor{OrangePSL}{RGB}{255,127,0}
+\definecolor{SkyBlue}{RGB}{47,68,255}
+\definecolor{GrayPSL}{RGB}{67,65,72}
+\colorlet{LightBluePSL}{BluePSL!20!}
+\definecolor{myred}{RGB}{176, 35, 24}
+
+\definecolor{color1}{RGB}{102, 110, 119}
+\definecolor{color2}{RGB}{159, 119,  83}
+\definecolor{color3}{RGB}{226, 182, 112}
+\definecolor{color4}{RGB}{217, 204, 189}
+\definecolor{color5}{RGB}{143, 152, 166}
+\definecolor{color6}{RGB}{132, 181, 229}
+\definecolor{color7}{RGB}{226, 153,  90}
+\definecolor{color8}{RGB}{240, 211, 113}
+\definecolor{color9}{RGB}{249, 240, 206}
+
+
+
+\setbeamercolor{background canvas}{fg= black!2 , bg=white} 
+\setbeamercolor{footline}{fg = normal text.fg, bg = normal text.fg!15! }
+\setbeamercolor{beamercolorbox}{fg=white, bg=BluePSL}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% title page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{sources/title_template.tex}
+
+\makeatletter
+\setlength{\metropolis@titleseparator@linewidth}{0.5pt}
+\setlength{\metropolis@progressonsectionpage@linewidth}{1.2pt}
+\setlength{\metropolis@progressinheadfoot@linewidth}{1.2pt}
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% footer
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setbeamertemplate{frame footer}{
+~~\textbf{Alexandre Araujo - PhD Defense} \hfill \tiny{Building Compact and Robust Deep Neural Networks with Toeplitz Matrices}}
+
+\makeatletter
+\setbeamertemplate{footline}{%
+  \begin{center}
+    \rule{1.2\linewidth}{0.3pt}
+  \end{center}
+  \vspace{-6pt}
+  \begin{beamercolorbox}[wd=\textwidth, sep=1ex]{footline}
+    \usebeamerfont{page number in head/foot}%
+    \usebeamertemplate*{frame footer}
+    \hfill%
+    \usebeamertemplate*{frame numbering} 
+      ~~\raisebox{-1.3ex}{\includegraphics[height=4ex]{logos/psl.png}}~~
+  \end{beamercolorbox}%
+}
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% custom command
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \renewcommand{\bibsection}{}
-\newtheorem{proposition}{Proposition}[section]
+% \newtheorem{proposition}{Proposition}[section]
 \newcommand{\yt}{\textit{YouTube-8M}\xspace}
 \newcommand{\eg}{\textit{e.g.}\xspace}
 \newcommand{\ie}{\textit{i.e.}\xspace}
@@ -111,82 +219,54 @@
 \newcommand{\seqsetM}{M}
 
 % cin et cout
-\newcommand{\cin}{cin}
-\newcommand{\cout}{cout}
-
+\newcommand{\cin}{\ensuremath{\mathrm{cin}}}
+\newcommand{\cout}{\ensuremath{\mathrm{cout}}}
 
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\E}{\Ebb}
 
 % norms
 \newcommand{\lone}{\ensuremath \ell_1}
 \newcommand{\ltwo}{\ensuremath \ell_2}
 \newcommand{\linf}{\ensuremath \ell_\infty}
 
-% command for sets
-\newcommand{\Nbb}{{\ensuremath \mathbb{N}}}
-\newcommand{\Zbb}{{\ensuremath \mathbb{Z}}}
-\newcommand{\Rbb}{{\ensuremath \mathbb{R}}}
-\newcommand{\Cbb}{{\ensuremath \mathbb{C}}}
 
-% expected value
-\newcommand{\Ebb}{\ensuremath \mathbb{E}}
+\def\ddefloop#1{\ifx\ddefloop#1\else\ddef{#1}\expandafter\ddefloop\fi}
 
-% command for matrices
-\newcommand{\Amat}{\ensuremath \mathbf{A}}
-\newcommand{\Bmat}{\ensuremath \mathbf{B}}
-\newcommand{\Cmat}{\ensuremath \mathbf{C}}
-\newcommand{\Dmat}{\ensuremath \mathbf{D}}
-\newcommand{\Emat}{\ensuremath \mathbf{E}}
-\newcommand{\Fmat}{\ensuremath \mathbf{F}}
-\newcommand{\Gmat}{\ensuremath \mathbf{G}}
-\newcommand{\Hmat}{\ensuremath \mathbf{H}}
-\newcommand{\Imat}{\ensuremath \mathbf{I}}
-\newcommand{\Jmat}{\ensuremath \mathbf{J}}
-\newcommand{\Kmat}{\ensuremath \mathbf{K}}
-\newcommand{\Lmat}{\ensuremath \mathbf{L}}
-\newcommand{\Mmat}{\ensuremath \mathbf{M}}
-\newcommand{\Nmat}{\ensuremath \mathbf{N}}
-\newcommand{\Omat}{\ensuremath \mathbf{O}}
-\newcommand{\Pmat}{\ensuremath \mathbf{P}}
-\newcommand{\Qmat}{\ensuremath \mathbf{Q}}
-\newcommand{\Rmat}{\ensuremath \mathbf{R}}
-\newcommand{\Smat}{\ensuremath \mathbf{S}}
-\newcommand{\Tmat}{\ensuremath \mathbf{T}}
-\newcommand{\Umat}{\ensuremath \mathbf{U}}
-\newcommand{\Vmat}{\ensuremath \mathbf{V}}
-\newcommand{\Wmat}{\ensuremath \mathbf{W}}
-\newcommand{\Xmat}{\ensuremath \mathbf{X}}
-\newcommand{\Ymat}{\ensuremath \mathbf{Y}}
-\newcommand{\Zmat}{\ensuremath \mathbf{Z}}
+% domains
+\def\ddef#1{\expandafter\def\csname #1bb\endcsname{\ensuremath{\mathbb{#1}}}}
+\ddefloop ABCDEFGHIJKLMNOPQRSTUVWXYZ\ddefloop
+% sets
+\def\ddef#1{\expandafter\def\csname #1cal\endcsname{\ensuremath{\mathcal{#1}}}}
+\ddefloop ABCDEFGHIJKLMNOPQRSTUVWXYZ\ddefloop
+% bold matrices
+\def\ddef#1{\expandafter\def\csname #1mat\endcsname{\ensuremath{\mathbf{#1}}}}
+\ddefloop ABCDEFGHIJKLMNOPQRSTUVWXYZ\ddefloop
+% sans serif matrices
+\def\ddef#1{\expandafter\def\csname #1matsf\endcsname{\ensuremath{\mathsf{#1}}}}
+\ddefloop ABCDEFGHIJKLMNOPQRSTUVWXYZ\ddefloop
+% bold vectors
+\def\ddef#1{\expandafter\def\csname #1vec\endcsname{\ensuremath{\mathbf{#1}}}}
+\ddefloop abcdefghijklmnopqrstuvwxyz\ddefloop
 
-% command for matrices
-\newcommand{\avec}{\ensuremath \mathbf{a}}
-\newcommand{\bvec}{\ensuremath \mathbf{b}}
-\newcommand{\cvec}{\ensuremath \mathbf{c}}
-\newcommand{\dvec}{\ensuremath \mathbf{d}}
-\newcommand{\evec}{\ensuremath \mathbf{e}}
-\newcommand{\fvec}{\ensuremath \mathbf{f}}
-\newcommand{\gvec}{\ensuremath \mathbf{g}}
-\newcommand{\hvec}{\ensuremath \mathbf{h}}
-\newcommand{\ivec}{\ensuremath \mathbf{i}}
-\newcommand{\jvec}{\ensuremath \mathbf{j}}
-\newcommand{\kvec}{\ensuremath \mathbf{k}}
-\newcommand{\lvec}{\ensuremath \mathbf{l}}
-\newcommand{\mvec}{\ensuremath \mathbf{m}}
-\newcommand{\nvec}{\ensuremath \mathbf{n}}
-\newcommand{\ovec}{\ensuremath \mathbf{o}}
-\newcommand{\pvec}{\ensuremath \mathbf{p}}
-\newcommand{\qvec}{\ensuremath \mathbf{q}}
-\newcommand{\rvec}{\ensuremath \mathbf{r}}
-\newcommand{\svec}{\ensuremath \mathbf{s}}
-\newcommand{\tvec}{\ensuremath \mathbf{t}}
-\newcommand{\uvec}{\ensuremath \mathbf{u}}
-\newcommand{\vvec}{\ensuremath \mathbf{v}}
-\newcommand{\wvec}{\ensuremath \mathbf{w}}
-\newcommand{\xvec}{\ensuremath \mathbf{x}}
-\newcommand{\yvec}{\ensuremath \mathbf{y}}
-\newcommand{\zvec}{\ensuremath \mathbf{z}}
+
+% sans sherif
+\def\ddef#1{\expandafter\def\csname #1sf\endcsname{\ensuremath{\mathsf{#1}}}}
+\ddefloop abcdefghijklmnopqrstuvwxyz\ddefloop
+% sans sherif
+\def\ddef#1{\expandafter\def\csname #1sf\endcsname{\ensuremath{\mathsf{#1}}}}
+\ddefloop ABCDEFGHIJKLMNOPQRSTUVWXYZ\ddefloop
+
+% bold sans sherif
+\def\ddef#1{\expandafter\def\csname #1bsf\endcsname{\ensuremath{\boldsymbol{\mathsf{#1}}}}}
+\ddefloop abcdefghijklmnopqrstuvwxyz\ddefloop
+% bold sans sherif
+\def\ddef#1{\expandafter\def\csname #1bsf\endcsname{\ensuremath{\boldsymbol{\mathsf{#1}}}}}
+\ddefloop ABCDEFGHIJKLMNOPQRSTUVWXYZ\ddefloop
+
+% special command for big O notation
+\newcommand{\bigO}{\ensuremath \mathcal{O}}
 
 % matrix brackets
 \newcommand{\leftmatrix}{\begin{pmatrix}}
@@ -197,6 +277,10 @@
 % circulant & diagonal
 \newcommand{\circulant}{\ensuremath \mathrm{circ}}
 \newcommand{\diagonal}{\ensuremath \mathrm{diag}}
+
+\newcommand{\orange}[1]{{\color{OrangePSL}{#1}}}
+\newcommand{\orangebold}[1]{{\color{OrangePSL}{\textbf{#1}}}}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
