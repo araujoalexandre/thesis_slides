@@ -1,0 +1,80 @@
+
+\begin{tikzpicture}[
+  baseline,
+  mymat/.style={
+    matrix of math nodes,
+    ampersand replacement=\&,
+    left delimiter=(,
+    right delimiter=),
+    nodes in empty cells,
+    nodes={outer sep=-\pgflinewidth,text depth=0.5ex,text height=2ex,text width=1.2em}
+  }
+  ]
+  \begin{scope}[every right delimiter/.style={xshift=-3ex}]
+    \matrix[mymat] (matu) {
+      \& \& \& \& \& \\
+      \& \& \& \& \& \\
+      \& \& \& \& \& \\
+      \& \& \& \& \& \\
+      \& \& \& \& \& \\
+      \& \& \& \& \& \\
+    };
+    \node at ([shift={(3pt,-7pt)}]matu-3-2.west) {$\cdots$};
+    \node at ([shift={(3pt,-7pt)}]matu-3-5.west) {$\cdots$};
+    \foreach \Columna/\Valor in {1/1,3/r,4/{r+1},6/m} {
+      \def\mytestcolor{none}
+      \ifnum\Columna=1\relax\def\mytestcolor{myred}\fi
+      \ifnum\Columna=3\relax\def\mytestcolor{RoyalBlue}\fi
+      \draw [fill=\mytestcolor] (matu-1-\Columna.north west) rectangle ([xshift=4pt]matu-6-\Columna.south west);
+      \node[above] at ([xshift=2pt]matu-1-\Columna.north west) {$\uvec_{\Valor}$};
+     }
+    \draw[decorate,decoration={brace,mirror,raise=3pt}] 
+      (matu-6-1.south west) -- 
+       node[below=4pt] {$\Mcol(\Amat)$}
+      ([xshift=4pt]matu-6-3.south west);
+    \draw[decorate,decoration={brace,mirror,raise=3pt}] 
+      (matu-6-4.south west) -- 
+       node[below=4pt] {$\Mnull(\Amat)$}
+      ([xshift=4pt]matu-6-6.south west);
+  \end{scope}
+  \matrix[mymat,right=10pt of matu] (matsigma) {
+    \sigma_{1} \& \& \& \& \& \\
+    \& \ddots \& \& \& \& \\
+    \& \& \sigma_{r} \& \& \& \\
+    \& \& \& 0 \& \& \\
+    \& \& \& \& \ddots \& \\
+    \& \& \& \& \& 0 \\
+  };
+  \draw[decorate,decoration={brace,raise=0pt}] 
+    ($(matsigma-1-1.north)+(.0,.0)$) -- ($(matsigma-3-3.north east)+(0.1,-0.17)$)
+    node[above=5pt,midway,sloped] {Singular Values};
+
+    \draw[decorate,decoration={brace,mirror,raise=3pt}] 
+      ($(matu-6-1.south west)+(-0.5,-1.)$) -- node[below=4pt] 
+      {\large{Decomposition}}
+      ($(matu-6-6.south east)+(0.,-1.)$);
+
+  \matrix[mymat,right=25pt of matsigma] (matv) {
+     \& \& \& \& \& \\
+    \& \& \& \& \& \\
+    \& \& \& \& \& \\
+    \& \& \& \& \& \\
+    \& \& \& \& \& \\
+    \& \& \& \& \& \\
+  };
+  \foreach \Fila/\Valor in {1/1,3/r,4/{r+1},6/n} {
+    \def\mytestcolor{none}
+    \ifnum\Fila=1\relax\def\mytestcolor{OrangePSL}\fi
+    \ifnum\Fila=3\relax\def\mytestcolor{color2}\fi
+    \draw[fill=\mytestcolor] ([yshift=-6pt]matv-\Fila-1.north west) rectangle ([yshift=-10pt]matv-\Fila-6.north east);
+    \node[right=12pt] at ([yshift=-8pt]matv-\Fila-6.north east) {$\vvec^*_{\Valor}$};
+  }
+  \draw[decorate,decoration={brace,raise=37pt}] 
+    ([yshift=-6pt]matv-1-6.north east) -- 
+     node[right=38pt] {$\Mrow(\Amat)$}
+    ([yshift=-10pt]matv-3-6.north east);
+  \draw[decorate,decoration={brace,raise=37pt}] 
+    ([yshift=-6pt]matv-4-6.north east) -- 
+     node[right=38pt] {$\Mnull(\Amat)$}
+    ([yshift=-10pt]matv-6-6.north east);
+\end{tikzpicture}

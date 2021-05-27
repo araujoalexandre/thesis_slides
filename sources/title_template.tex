@@ -1,0 +1,50 @@
+
+\setbeamertemplate{title page}{
+  \begin{minipage}[c][\paperheight]{\textwidth}
+    \ifx\inserttitlegraphic\@empty\else\usebeamertemplate*{title graphic}\fi
+    \vfill%
+    {
+      \vspace{-1cm}
+      \ifx\inserttitle\@empty\else\usebeamertemplate*{title}\fi
+      \ifx\insertsubtitle\@empty\else\usebeamertemplate*{subtitle}\fi
+    }
+    \usebeamertemplate*{title separator}
+    \vspace{12pt}
+    \begin{minipage}{\textwidth}
+      \begin{flushleft}
+	\small{\textbf{Candidate:} Alexandre Araujo \hfill Universit\'e Paris Dauphine -- PSL} \\ [5pt]
+	\textbf{Date:} 01/06/2021 \hfill \small{Machine Intelligence and Learning Systems} \\ [7pt]
+      \end{flushleft}
+    \end{minipage}
+    \vspace{1em}
+
+    \begin{minipage}{0.5\textwidth}
+      \textbf{PhD advisors:}
+      \footnotesize{
+	\begin{itemize}[itemsep=0pt]
+	  \item Jamal Atif
+	  \item Yann Chevaleyre
+	  \item Benjamin Negrevergne
+	  \item \phantom{test}
+	  \item \phantom{test}
+	\end{itemize}
+      }
+    \end{minipage}
+    \begin{minipage}{0.51\textwidth}
+      \textbf{Jury members:}
+      \footnotesize{
+	\begin{itemize}[itemsep=0pt]
+	  \item Teddy Furon (Reviewer)
+	  \item Alain Rakotomamonjy (Reviewer)
+	  \item Rémi Gribonval (Examiner)
+	  \item Elisa Fromont (Examiner)
+	  \item Krzysztof Choromanski (Examiner)
+	\end{itemize}
+      }
+    \end{minipage}
+    \vfill
+    \vspace{1pt}
+  \end{minipage}
+}
+
+

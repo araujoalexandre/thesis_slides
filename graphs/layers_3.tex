@@ -1,0 +1,28 @@
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.85\textwidth,
+    height=0.6\textwidth,
+    xlabel={Epochs},
+    ylabel={GAP},
+    xmin=0, xmax=7,
+    ymin=0.63, ymax=0.87,
+    xtick={0,1,2,3,4,5,6,7},
+    ytick={0.63, 0.66, 0.69, 0.72, 0.75, 0.78, 0.81, 0.84, 0.87},
+    ymajorgrids=true,
+    grid style=dashed,
+	]
+  \addplot[color=myred!100,      thick, dashed] table [y=gap, x=epoch]{data/layers/dense.dat};
+  \addplot[color=NavyBlue!100,   thick] table [y=gap, x=epoch]{data/layers/compact_fc.dat};
+  \addplot[color=OrangePSL!100,  thick] table [y=gap, x=epoch]{data/layers/compact_dbof.dat};
+  \addplot[color=OliveGreen!100, thick] table [y=gap, x=epoch]{data/layers/compact_moe.dat};
+
+  % \draw [color=myred!100,      thick, <-] (axis cs:2.8,0.835) -- +(+10pt,-10pt) node[right] {Original};
+  % \draw [color=myred!100, thick, <-] (axis cs:3.0,0.843) -- +(+10pt,+10pt) node[right] {Original};
+  % \draw [color=NavyBlue!30,    thick, <-] (axis cs:2.0,0.834) -- +(-10pt,+10pt) node[left]  {9.2\%};
+  % \draw [color=OrangePSL!30,   thick, <-] (axis cs:5.2,0.830) -- +(+10pt,-10pt) node[right] {18.4\%};
+  \draw [color=OliveGreen!100, thick, <-] (axis cs:5.0,0.800) -- +(+10pt,-10pt) node[right] {72.0\%};
+
+
+
+\end{axis}
+\end{tikzpicture}
