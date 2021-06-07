@@ -4,24 +4,24 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Conclusion}
+\begin{frame}{Summary of the Contributions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{itemize}
     \item[\orangebold{1.}] <1-> \textbf{Compact Neural Networks}
     \small{
-    \begin{itemize}
-      \item[$\bullet$] <2-> We built compact networks with Diagonal and Circulant Matrices; 
-      \item[$\bullet$] <3-> We studied their expressivity and showed that they are universal approximators;
-      \item[$\bullet$] <4-> We trained these networks on large scale video classification task.
+    \begin{itemize}[itemsep=2pt]
+      \item[$\bullet$] <2-> We built compact networks with Diagonal and Circulant Matrices
+      \item[$\bullet$] <3-> We studied these networks and characterized their expressivity
+      \item[$\bullet$] <4-> We trained these networks on a large scale video classification task
     \end{itemize}}
     \vspace{0.5cm}
     \item[\orangebold{2.}] <5-> \textbf{Improved Robustness of CNNs}
       \small{
-      \begin{itemize}
-        \item[$\bullet$] <6-> We devised an upper bound on the singular values of convolutional layers.
-        \item[$\bullet$] <7-> We proposed an efficient algorithm to compute this upper bound.
-        \item[$\bullet$] <8-> We proposed a new regularization scheme to improve adversarial robustness.
+      \begin{itemize}[itemsep=2pt]
+        \item[$\bullet$] <6-> We devised an upper bound on the singular values of convolutional layers
+        \item[$\bullet$] <7-> We proposed an efficient algorithm to compute this upper bound
+        \item[$\bullet$] <8-> We proposed a new regularization scheme to improve adversarial robustness
       \end{itemize}}
   \end{itemize}
 
@@ -29,42 +29,271 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Perspectives}
+\begin{frame}{Perspectives -- Compact Neural Networks}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   {\small
-    \textbf{On compact neural networks:} 
+    \textbf{Context:}
+    \vspace{-0.2cm}
     \begin{itemize}[leftmargin=0.2cm]
-      \item <2-> Recent works have devised very compact and accurate CNNs ({\color{SkyBlue}{\cite{tan2019efficientnet}}});
-      \item <3-> Recent models with billions of parameters have been designed: Transformer Networks ({\color{SkyBlue}{\cite{vaswani2017attention}}});
-      \begin{itemize}
-	\item[\orange{$\rightarrow$}] <4-> Study if this amount of parameters is useful;
-	\item[\orange{$\rightarrow$}] <5-> Replace the dense matrices of Transformer networks with structured ones. 
-      \end{itemize}
+      \item[$\bullet$] <1-> Race towards larger CNNs seems to have slowed down ({\color{SkyBlue}{\cite{tan2019efficientnet}}})
+      \item[$\bullet$] <2-> Transformer models with billions of parameters have been designed ({\color{SkyBlue}{\cite{fedus2021switch}}})
     \end{itemize}
   }
 
-  \vspace{0.5cm}
-  {\small
-    \visible<6->{\textbf{On robustness to adversarial examples:}}
-    \begin{itemize}[leftmargin=0.2cm]
-      \item <7-> Adversarial examples are hard to mitigate (AT: $\sim$ 47\% accuracy under attack);
-      \item <8-> Recent work have proposed method for certified accuracy ({\color{SkyBlue}{\cite{cohen2019certified}}});
+  \visible<3->{
+
+    {\small
+      The attention layer is described as follows:
+      \begin{equation}
+	\text{Attention}(\Qmat, \Kmat, \Vmat) = \text{softmax} \left( \frac{\Qmat \Kmat^\top}{\sqrt{d_k}} \right) \Vmat
+      \end{equation}
+      where $\Qmat, \Kmat$ and $\Vmat$ are dense matrices.
+    }
+
+    \vspace{0.2cm}
+
+    {\small
+      \textbf{Perspectives:}
+      \vspace{-0.2cm}
       \begin{itemize}
-	\item[\orange{$\rightarrow$}] <9-> Study if the Lipschitz regularization can boost the certified accuracy; 
-	\item[\orange{$\rightarrow$}] <10-> Study we can better characterize the Lipschitz constant of neural networks given their architecture. 
+	\item[\orange{$\rightarrow$}] The Attention layer does not exploit structured matrices 
+	\item[\orange{$\rightarrow$}] Devise structured Attention layer to improve memory-footprint and computational complexity
       \end{itemize}
-    \end{itemize}
-  }
+    } 
 
-
+ }
 
 \end{frame}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Published works}
+\begin{frame}{Perspectives -- Adversarial Robustness}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  {\small
+    \textbf{Context:}
+    \vspace{-0.2cm}
+    \begin{itemize}[leftmargin=0.2cm]
+      \item[$\bullet$] <1-> Adversarial attacks are an important social issue as more and more models are deployed into production applications
+      \item[$\bullet$] <2-> Adversarial attacks are hard to mitigate
+      \item[$\bullet$] <3-> Protecting against one type of attack does not protect against other types
+      \begin{itemize}
+        \item[\orange{$\rightarrow$}] It is necessary to mix defense strategies ({\color{SkyBlue}{\cite{araujo2020advocating,maini2020adversarial}}})
+      \end{itemize}
+    \end{itemize}
+  }
+  
+  \vspace{0.2cm}
+
+  \visible<4->{
+    {\small
+    \textbf{Perspectives:}
+    \vspace{-0.2cm}
+    \begin{itemize}
+      \item[$\bullet$] The largest singular value of matrix is the Lipschitz constant with respect to the $l_2$
+      \item[$\bullet$] The Lipschitz constant can be defined with respect to other norms 
+      \item[\orange{$\rightarrow$}] Improve the overall robustness with $l_p$ Lipschitz regularization
+    \end{itemize} 
+    }
+  }
+
+\end{frame}
+
+
+
+
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Protecting Neural Networks against Several Types of Attacks}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   \begin{minipage}{\textwidth}
+%     \centering
+%
+%     \scalebox{0.8}{
+%     \begin{tikzpicture}
+%
+%       \foreach \PointA in {-5,-4,-3, -2,-1,0,+1,+2,+3,+4,+5} {
+%         \foreach \PointB in {0} {
+% 	  \draw [fill=white,white,opacity=0] (\PointA,\PointB) circle (0.02cm);
+% 	 }
+%       }
+%
+%       \def\radiuscircle{2.4cm}
+%       \def\sizesquare{2cm}
+%
+%       \draw plot[only marks,mark=x] coordinates{(-2, 0)};
+%       \node (image1)     at (-2, -0.2) {\footnotesize{image}};
+%       \node (circle1)    at (-2,  0.0) [draw, circle, minimum size=\radiuscircle] {};
+%       \node (rectangle1) at (-2,  0.0) 
+%         [draw, minimum width=\sizesquare, minimum height=\sizesquare, dashed] {};
+%       \draw[-latex] (-2,0) -- (-1.07,0.95);
+%       \draw plot[only marks,mark=x] coordinates{(-1.03,0.97)};
+%
+%       \begin{scope}
+% 	\color{red}
+% 	\pgfsetlinewidth{0.5pt}
+% 	\pgfsetplottension{0.9}
+% 	\pgfplothandlercurveto
+% 	\pgfplotstreamstart
+% 	  \pgfplotstreampoint{\pgfpoint{-3.0cm}{+1.3cm}}
+% 	  \pgfplotstreampoint{\pgfpoint{-1.11cm}{+0.89cm}}
+% 	  \pgfplotstreampoint{\pgfpoint{-0.7cm}{-1.0cm}}
+% 	\pgfplotstreamend
+% 	\pgfusepath{stroke}
+%       \end{scope}
+%
+%       \draw plot[only marks,mark=x] coordinates{(+2, 0)};
+%       \node (image2)     at (+2, -0.2) {\footnotesize{image}};
+%       \node (circle2)    at (+2,  0.0) [draw, circle, minimum size=\radiuscircle] {};
+%       \node (rectangle2) at (+2,  0.0) 
+%         [draw, minimum width=\sizesquare, minimum height=\sizesquare, dashed] {};
+%       \draw[-latex] (+2,0) -- (+2,1.12);
+%       \draw plot[only marks,mark=x] coordinates{(+2, 1.15)};
+%
+%       \begin{scope}
+% 	\color{blue}
+% 	\pgfsetlinewidth{0.5pt}
+% 	\pgfsetplottension{0.3}
+% 	\pgfplothandlercurveto
+% 	\pgfplotstreamstart
+% 	  \pgfplotstreampoint{\pgfpoint{+1.0cm}{+1.1cm}}
+% 	  \pgfplotstreampoint{\pgfpoint{+2.0cm}{+1.05cm}}
+% 	  \pgfplotstreampoint{\pgfpoint{+3.05cm}{+1.05cm}}
+% 	  \pgfplotstreampoint{\pgfpoint{+3.1cm}{-1.0cm}}
+% 	\pgfplotstreamend
+% 	\pgfusepath{stroke}
+%       \end{scope}
+%
+%       \node (ball1)     at (-3.8, +1.2) {\footnotesize{$l_\infty$ ball}};
+%       \node (ball2)     at (-3.8, +0.0) {\footnotesize{$l_2$ ball}};
+%       \path[-latex] (ball1.south) edge [bend right] ($(rectangle1.north west)+(0.0,-0.1)$);
+%       \path[-latex] (ball2.south) edge [bend right] ($(circle1.west)+(0.0,0.0)$);
+%
+%       \node (adv1)     at (-0.3, +1.3) {
+%         \begin{minipage}{0.2\textwidth}
+%           {\footnotesize
+% 	    $l_\infty$ adversarial \\[-0.2cm] 
+%             example
+%           }
+%         \end{minipage}};
+%
+%       \node (adv2)     at (+2.3, +1.5) {
+%         \begin{minipage}{0.2\textwidth}
+%           {\footnotesize
+%             $l_2$ adversarial \\[-0.2cm] 
+%             example
+%           }
+%         \end{minipage}};
+%
+%       \node (model1) at (-3.9,2.0) {
+% 	 {\footnotesize
+%         \begin{tabular}{c}
+% 	  Model defended \\[-0.1cm] 
+% 	  against $l_2$ attacks
+%         \end{tabular}}};
+%
+%       \node (model2) at (+4.3,2.0) {
+% 	{\footnotesize
+%         \begin{tabular}{c}
+% 	  Model defended \\[-0.1cm] 
+% 	  against $l_\infty$ attacks
+%          \end{tabular}}};
+%
+%       \path[-latex] ($(model1.east)+(-0.3,+0.0)$) edge [bend left] (-2.5, 1.4);
+%       \path[-latex] (model2.south) edge [bend left] (3.1,1.1);
+%
+%     \end{tikzpicture}}
+%   \end{minipage}
+%
+%
+%   \vspace{0.2cm}
+%   {\small
+%   \textbf{Context:}
+%   \vspace{-0.2cm}
+%   \begin{itemize}
+%     \item[$\bullet$] Protecting against one type of attack does not protect against other types
+%     \item[$\bullet$] The volume of the intersection of the balls is negligible when $d$ is large
+%     \item[$\bullet$] It is necessary to mix defense strategies ({\color{SkyBlue}{\cite{araujo2020advocating,maini2020adversarial}}})
+%   \end{itemize} 
+%   }
+%
+%   {\small
+%   \textbf{Perspective:}
+%   \vspace{-0.2cm}
+%   \begin{itemize}
+%     \item[$\bullet$] The largest singular value of matrix is the Lipschitz constant with respect to the $l_2$
+%     \item[$\bullet$] The Lipschitz constant can be defined with respect to other norms 
+%       % \begin{equation}
+% 	% \mathrm{Lip}_{p}(\phi) = \sup_{\substack{\xvec_1, \xvec_2 \in \Rbb^n \\ \xvec_1 \neq \xvec_2}} \frac{\norm{\phi(\xvec_1) - \phi(\xvec_2)}_p}{\norm{\xvec_1 - \xvec_1}_p}
+%       % \end{equation}
+%     \item[\orange{$\rightarrow$}] Improve the overall robustness with $l_p$ Lipschitz regularization
+%   \end{itemize} 
+%   }
+%   
+% \end{frame}
+
+
+
+
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Towards a Better Stability of Invertible Neural Networks}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   \textbf{Context:}
+%   The use of the Lipschitz constant goes beyond the adversarial robustness
+%
+%   \begin{itemize}
+%     \item[$\bullet$] Invertible neural networks are more and more popular for several applications
+%     \item[$\bullet$] 
+%   \end{itemize}
+%
+%   To avoid exploding inverse in the context of Invertible Neural Networks, it is necessary to derive bi-Lipschitz properties of each layer:
+%
+%   \begin{equation}
+%     \mathrm{Lip}_{p}(\phi^{-1}) = \sup_{\substack{\xvec_1, \xvec_2 \in \Rbb^n \\ \xvec_1 \neq \xvec_2}} \frac{\norm{\phi^{-1}(\xvec_1) - \phi^{-1}(\xvec_2)}_p}{\norm{\xvec_1 - \xvec_1}_p}
+%   \end{equation}
+%
+%
+% \end{frame}
+%
+%
+%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Towards a Better Understanding of Neural Networks}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   The Lipschitz constant of Neural Networks characterizes its expressivity and gives information on its behavior.
+%
+%   \orangebold{$\rightarrow$} Study Neural Networks through their spectrum 
+%
+%   \vspace{0.5cm}
+%
+%   Let $\Fmat: \Xcal \rightarrow \Xcal$ be a nonlinear continuous Lipschitz map, the \textit{Kachurovskij spectrum} ({\color{SkyBlue}{\cite{kachurovskii1969regular}}}) is given by
+%   \begin{equation}
+%     \sigma(\Fmat) \triangleq \left\{ \lambda \in \Cbb \mid \lambda \Imat - \Fmat \text{ is not a lipeomorphism} \right\} 
+%   \end{equation} 
+%   where a nonlinear Lipschitz continuous operator is a \textit{lipeomorphism} if its inverse is also nonlinear Lipschitz continuous.
+%
+% \end{frame}
+
+
+
+
+
+
+\section{Questions}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Published Works}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   {\small
@@ -72,58 +301,50 @@
     \item \textbf{On compact neural networks:} \vspace{0.1cm}
     \begin{itemize}[leftmargin=0.3cm]
       \item \textit{Understanding and Training Deep Diagonal Circulant Neural Networks}
-      \item \citet{araujo2020understanding} \hfill \textbf{ECAI 2020}\vspace{0.1cm}
+      \item {\color{SkyBlue}{\citet{araujo2020understanding}}} \hfill \textbf{ECAI 2020}\vspace{0.1cm}
       \item \textit{Training Compact Deep Learning Models for Video Classification using Circulant Matrices}
-      \item \citet{araujo2018training} \hfill \textbf{Workshop at ECCV 2018}
+      \item {\color{SkyBlue}{\citet{araujo2018training}}} \hfill \textbf{Workshop at ECCV 2018}
     \end{itemize} \vspace{0.3cm}
 
     \item \textbf{On robustness to adversarial examples:} \vspace{0.1cm}
     \begin{itemize}[leftmargin=0.3cm]
       \item \textit{On Lipschitz Regularization of Convolutional Layers using Toeplitz Matrix Theory}
-      \item \citet{araujo2021lipschitz} \hfill \textbf{AAAI 2021}\vspace{0.1cm}
+      \item {\color{SkyBlue}{\citet{araujo2021lipschitz}}} \hfill \textbf{AAAI 2021}\vspace{0.1cm}
       \item \textit{Advocating for Multiple Defense Strategies against Adversarial Examples}
-      \item \citet{araujo2020advocating} \hfill \textbf{Workshop at ECML 2020}\vspace{0.1cm}
+      \item {\color{SkyBlue}{\citet{araujo2020advocating}}} \hfill \textbf{Workshop at ECML 2020}\vspace{0.1cm}
       \item \textit{Theoretical evidence for robustness through randomization}
-      \item \citet{pinot2019theoretical} \hfill \textbf{NeurIPS 2019}
+      \item {\color{SkyBlue}{\citet{pinot2019theoretical}}} \hfill \textbf{NeurIPS 2019}
     \end{itemize}
   \end{itemize}
   }
 
-
 \end{frame}
 
 
-
-
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{Lipschitz Regularization -- Limitation of the approach}
+% \begin{frame}{Structured Matrices for Transformers}
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%   Recent works (\cite{scaman2018lipschitz, NIPS2019_9319, latorre2020lipschitz}) have tried to devise algorithms to compute the Lipschitz constant of a Neural Network but these techniques are difficult to implement for neural networks with more than one or two layers.
+%   \begin{itemize}
+%     \item[$\bullet$] The structure of convolutions is optimal for computer vision
+%     \item[$\bullet$] The Attention layer {\color{SkyBlue}{\cite{vaswani2017attention}}} seems to be the counterpart for natural language processing
+%   \end{itemize}
 %
-%   \begin{block}{Question}
-%     Can we leverage the block-Toeplitz structure of convolution to devise fast and accurate algorithm to compute the Lipschitz constant of Neural Networks ? 
-%   \end{block}
-%
-% \end{frame}
-
-
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{Tight bound of the global Lipschitz ?}
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%   It has been shown \citet{scaman2018lipschitz} that we can upper bound the global Lipschitz of a Neural Network as follows:
+%   \vspace{0.3cm}
+%   The attention layer is described as follows:
 %   \begin{equation}
-%       \text{Lip}(\mathcal{N}) \leq
-%     \max_{\forall i,\ \sigma_i \in [0, 1]^{n_i}} \norm{ \Wmat_\ell \text{diag}(\sigma_{\ell-1}) \Wmat_{k-1} \cdots \textrm{diag}(\sigma_1) \Wmat_1 }_2
+%     \text{Attention}(\Qmat, \Kmat, \Vmat) = \text{softmax} \left( \frac{\Qmat \Kmat^\top}{\sqrt{d_k}} \right) \Vmat \enspace,
 %   \end{equation}
+%   where $\Qmat, \Kmat$ and $\Vmat$ are dense matrices.
 %
-%   \paragraph{Question} Can we leverage the generating functions of doubly-block Toeplitz matrices to upper bound and compute the term:
+%  
+%   \textbf{Perspective:}
+%   \begin{itemize}
+%     \item[\orange{$\rightarrow$}] The Attention layer does not exploit structured matrices 
+%     \item[\orange{$\rightarrow$}] The Attentio
+%   \end{itemize}
 %
 % \end{frame}
-
-
 
 
 

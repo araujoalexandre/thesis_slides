@@ -12,106 +12,265 @@
   \begin{equation*}
       \Cmat = \Wmat^{-1} \Lambda \Wmat
   \end{equation*}
-  where $\Wmat = \frac{1}{\sqrt{n}} \left( \omega^{jk} \right)_{j,k = 0, \dots, n-1}$ with $\omega$ being the $n^{th}$ root of unity, $\Lambda$ is a diagonal matrix with the eigenvalues of the matrix $\Cmat$ and the eigenvalues of the matrix $\Cmat$ can correspond to $\Wmat \cvec$. 
+  where 
+  \begin{itemize}
+    \item[$\bullet$] $\Wmat = \frac{1}{\sqrt{n}} \left( \omega^{jk} \right)_{j,k = 0, \dots, n-1}$ with $\omega$ being the $n^{th}$ root of unity
+    \item[$\bullet$] $\Lambda$ is a diagonal matrix with the eigenvalues of the matrix $\Cmat$ which corresponds to $\Wmat \cvec$
+  \end{itemize}
 
-  Therefore, thanks to the convolution theorem, matrix-vector multiplication can be done efficiently with the \textbf{Fast Fourier Transform} as follows:
+  Due to the convolution theorem, matrix-vector multiplication can be done efficiently with the \textbf{FFT} as follows:
   \begin{equation*}
     \Cmat \xvec = \mathrm{IDFT}( \mathrm{DFT}(\cvec) * \mathrm{DFT}(\xvec) )
   \end{equation*}
-  where the multiplication is performed elements-wise. 
+
 \end{frame}
 
 
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Adversarial attacks}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Protecting Neural Networks against Several Types of Attacks}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \begin{minipage}{\textwidth}
-   \centering
-   An \textbf{adversarial attack} refers to a small change of an input maliciously designed to fool the result of a neural network. 
-  \end{minipage}
-  \vspace{0.7cm}
+    \centering
 
-  \only<1>{
-    \begin{minipage}{\textwidth}
-      \centering
-      \begin{overpic}[trim=0 1.2cm 0 0.3cm,clip,width=0.9\textwidth]{images/ExampleAdversarialCatDog.pdf}
-	\put (7.5, 19) {
-	  \footnotesize Image
-	}
-	\put (3.5, -3) {
-	  \footnotesize Label = ``cat''
-	}
-	\put (25, -2) {
-	  \begin{tikzpicture}
-	    \draw[color=white,fill] (0,0) -- (8,0) -- (8,2.5) -- (0,2.5) -- (0,0);
-	  \end{tikzpicture}
+    \scalebox{1}{
+    \begin{tikzpicture}
+
+      \foreach \PointA in {-5,-4,-3, -2,-1,0,+1,+2,+3,+4,+5} {
+        \foreach \PointB in {0} {
+	  \draw [fill=white,white,opacity=0] (\PointA,\PointB) circle (0.02cm);
 	 }
-      \end{overpic}
-    \end{minipage}
+      }
+
+      \def\radiuscircle{2.4cm}
+      \def\sizesquare{2cm}
+
+      \draw plot[only marks,mark=x] coordinates{(-2, 0)};
+      \node (image1)     at (-2, -0.2) {\footnotesize{image}};
+      \node (circle1)    at (-2,  0.0) [draw, circle, minimum size=\radiuscircle] {};
+      \node (rectangle1) at (-2,  0.0) 
+        [draw, minimum width=\sizesquare, minimum height=\sizesquare, dashed] {};
+      \draw[-latex] (-2,0) -- (-1.07,0.95);
+      \draw plot[only marks,mark=x] coordinates{(-1.03,0.97)};
+
+      \begin{scope}
+	\color{red}
+	\pgfsetlinewidth{0.5pt}
+	\pgfsetplottension{0.9}
+	\pgfplothandlercurveto
+	\pgfplotstreamstart
+	  \pgfplotstreampoint{\pgfpoint{-3.0cm}{+1.3cm}}
+	  \pgfplotstreampoint{\pgfpoint{-1.11cm}{+0.89cm}}
+	  \pgfplotstreampoint{\pgfpoint{-0.7cm}{-1.0cm}}
+	\pgfplotstreamend
+	\pgfusepath{stroke}
+      \end{scope}
+
+      \draw plot[only marks,mark=x] coordinates{(+2, 0)};
+      \node (image2)     at (+2, -0.2) {\footnotesize{image}};
+      \node (circle2)    at (+2,  0.0) [draw, circle, minimum size=\radiuscircle] {};
+      \node (rectangle2) at (+2,  0.0) 
+        [draw, minimum width=\sizesquare, minimum height=\sizesquare, dashed] {};
+      \draw[-latex] (+2,0) -- (+2,1.12);
+      \draw plot[only marks,mark=x] coordinates{(+2, 1.15)};
+
+      \begin{scope}
+	\color{blue}
+	\pgfsetlinewidth{0.5pt}
+	\pgfsetplottension{0.3}
+	\pgfplothandlercurveto
+	\pgfplotstreamstart
+	  \pgfplotstreampoint{\pgfpoint{+1.0cm}{+1.1cm}}
+	  \pgfplotstreampoint{\pgfpoint{+2.0cm}{+1.05cm}}
+	  \pgfplotstreampoint{\pgfpoint{+3.05cm}{+1.05cm}}
+	  \pgfplotstreampoint{\pgfpoint{+3.1cm}{-1.0cm}}
+	\pgfplotstreamend
+	\pgfusepath{stroke}
+      \end{scope}
+
+      \node (ball1)     at (-3.8, +1.2) {\footnotesize{$l_\infty$ ball}};
+      \node (ball2)     at (-3.8, +0.0) {\footnotesize{$l_2$ ball}};
+      \path[-latex] (ball1.south) edge [bend right] ($(rectangle1.north west)+(0.0,-0.1)$);
+      \path[-latex] (ball2.south) edge [bend right] ($(circle1.west)+(0.0,0.0)$);
+
+      \node (adv1)     at (-0.3, +1.3) {
+        \begin{minipage}{0.2\textwidth}
+          {\footnotesize
+	    $l_\infty$ adversarial \\[-0.2cm] 
+            example
+          }
+        \end{minipage}};
+
+      \node (adv2)     at (+2.3, +1.5) {
+        \begin{minipage}{0.2\textwidth}
+          {\footnotesize
+            $l_2$ adversarial \\[-0.2cm] 
+            example
+          }
+        \end{minipage}};
+
+      \node (model1) at (-3.9,2.0) {
+	 {\footnotesize
+        \begin{tabular}{c}
+	  Model defended \\[-0.1cm] 
+	  against $l_2$ attacks
+        \end{tabular}}};
+
+      \node (model2) at (+4.3,2.0) {
+	{\footnotesize
+        \begin{tabular}{c}
+	  Model defended \\[-0.1cm] 
+	  against $l_\infty$ attacks
+         \end{tabular}}};
+
+      \path[-latex] ($(model1.east)+(-0.3,+0.0)$) edge [bend left] (-2.5, 1.4);
+      \path[-latex] (model2.south) edge [bend left] (3.1,1.1);
+
+    \end{tikzpicture}}
+  \end{minipage}
+
+
+  \vspace{0.2cm}
+  {\small
+  \vspace{-0.2cm}
+  \begin{itemize}
+    \item[$\bullet$] Protecting against one type of attack does not protect against other types
+    \item[$\bullet$] The volume of the intersection of the balls is negligible when $d$ is large
+    \item[$\bullet$] It is necessary to mix defense strategies ({\color{SkyBlue}{\cite{araujo2020advocating,maini2020adversarial}}})
+  \end{itemize} 
   }
 
-  \only<2>{
-    \begin{minipage}{\textwidth}
-      \centering
-      \begin{overpic}[trim=0 1.2cm 0 0.3cm,clip,width=0.9\textwidth]{images/ExampleAdversarialCatDog.pdf}
-	\put (7.5, 19) {
-	  \footnotesize Image
-	}
-	\put (39.5, 19) {
-	  \footnotesize Adversarial Perturbation
-	}
-	\put (3.5, -3) {
-	  \footnotesize Label = ``cat''
-	}
-      \put (67, -2) {
-	\begin{tikzpicture}
-	  \draw[color=white,fill] (0,0) -- (3.1,0) -- (3.1,1.9) -- (0,1.9) -- (0,0);
-	\end{tikzpicture}
-       }
-      \end{overpic}
-    \end{minipage}
-  }
-
-  \only<3-5>{
-    \begin{minipage}{\textwidth}
-      \centering
-      \begin{overpic}[trim=0 1.2cm 0 0.3cm, clip, width=0.9\textwidth]{images/ExampleAdversarialCatDog.pdf}
-	\put (7.5, 19) {
-	  \footnotesize Image
-	}
-	\put (39.5, 19) {
-	  \footnotesize Adversarial Perturbation
-	}
-	\put (78, 19) {
-	  \footnotesize Adversarial Image
-	}
-	\put (3.5, -3) {
-	  \footnotesize Label = ``cat''
-	}
-	\put (80, -3) {
-	  \footnotesize Label = ``dog''
-	}
-      \end{overpic}
-    \end{minipage}
-  }
-
-  \vspace{0.15cm}
-  \visible<4-5>{
-    \begin{itemize}
-      \item[$\bullet$] \orangebold{Numerous} methods exist to craft an \orangebold{adversarial perturbation};
-      \item[$\bullet$] The best attacks reduce the accuracy of an undefended model to \orangebold{0\%};
-    \end{itemize}
-  }
-
-  \vspace{0.5cm}
-  \visible<5>{
-    \begin{mdframed}[linecolor=OrangePSL,linewidth=1pt]
-      \centering
-      Adversarial examples poses a growing societal problem as more and more machine learning models are deployed into critical-decision systems.
-    \end{mdframed}
-  }
+  % {\small
+  % \textbf{Perspective:}
+  % \vspace{-0.2cm}
+  % \begin{itemize}
+  %   \item[$\bullet$] The largest singular value of matrix is the Lipschitz constant with respect to the $l_2$
+  %   \item[$\bullet$] The Lipschitz constant can be defined with respect to other norms 
+  %     % \begin{equation}
+	% % \mathrm{Lip}_{p}(\phi) = \sup_{\substack{\xvec_1, \xvec_2 \in \Rbb^n \\ \xvec_1 \neq \xvec_2}} \frac{\norm{\phi(\xvec_1) - \phi(\xvec_2)}_p}{\norm{\xvec_1 - \xvec_1}_p}
+  %     % \end{equation}
+  %   \item[\orange{$\rightarrow$}] Improve the overall robustness with $l_p$ Lipschitz regularization
+  % \end{itemize} 
+  % }
 
 \end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Empirical Results -- CIFAR-10 Dataset}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{block}{Dataset: CIFAR-10}
+  \begin{itemize}
+    \item 50K images
+    \item 10 classes
+  \end{itemize}
+  \end{block}
+
+  \begin{table}[t]
+    \centering
+      {\small
+      \begin{tabular}{lrrrr}
+      \toprule
+      & \textbf{Accuracy} & \textbf{PGD}-$l_\infty$ 0.03 & \textbf{C\&W}-$l_2$ 0.6 & \textbf{C\&W}-$l_2$ 0.8 \\
+      \midrule
+      Baseline  & \textbf{95.3} & 0.00 & 0.02 & 0.00 \\
+      AT        & 86.4 & 42.6 & 47.7 & 33.4 \\
+      AT+LipReg & 80.8 & \textbf{45.7} & \textbf{54.7} & \textbf{43.8} \\
+      \midrule
+       & -5.6 & +3.1 & +7.0 & +10.4 \\
+      \bottomrule
+      \end{tabular}%
+      }
+    \caption{This table shows the Accuracy under $\ell_2$ and $\ell_\infty$ attacks of CIFAR10 dataset. We use $\lambda$ equals to $0.008$.}
+  \end{table}%
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Empirical Results -- ImageNet Dataset}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{block}{Dataset: ImageNet}
+  \begin{itemize}
+    \item 1,2 millions images
+    \item 1000 classes
+  \end{itemize}
+  \end{block}
+
+  \begin{table}[htbp]
+    \centering
+     {\small
+       \begin{tabular}{lrrrr}
+       \toprule
+	 & \multicolumn{1}{l}{\textbf{Accuracy}} & \multicolumn{1}{c}{\textbf{PGD-}$l_\infty$ 0.02} & \multicolumn{1}{l}{\textbf{C\&W-}$l_2$ 1} & \multicolumn{1}{l}{\textbf{C\&W-}$l_2$ 2} \\
+       \midrule
+       Baseline  & \textbf{78.6} & 0.00 & 0.00 & 0.00 \\
+       AT & 50.9 & 25.1 & 30.7 & 16.8 \\
+       AT+LipReg & \textbf{51.9} & \textbf{25.9} & \textbf{33.8} & \textbf{20.4} \\
+	\midrule
+	 & +1.0 & +0.8 & +3.1 & +3.6 \\
+       \bottomrule
+       \end{tabular}%
+       \caption{This table shows the accuracy and accuracy under attack of ImageNet dataset with different training schemes. We use $\lambda$  equal to $0.01$}
+     }
+  \end{table}%
+
+
+\end{frame}
+
+
+
+
+
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Adversarial attacks}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   \begin{minipage}{\textwidth}
+%    \centering
+%    An \textbf{adversarial attack} refers to a small change of an input maliciously designed to fool the result of a neural network. 
+%   \end{minipage}
+%   \vspace{0.7cm}
+%
+%   \begin{minipage}{\textwidth}
+%     \centering
+%     \begin{overpic}[trim=0 1.2cm 0 0.3cm, clip, width=0.9\textwidth]{images/ExampleAdversarialCatDog.pdf}
+%       \put (7.5, 19) {
+% 	\footnotesize Image
+%       }
+%       \put (39.5, 19) {
+% 	\footnotesize Adversarial Perturbation
+%       }
+%       \put (78, 19) {
+% 	\footnotesize Adversarial Image
+%       }
+%       \put (3.5, -3) {
+% 	\footnotesize Label = ``cat''
+%       }
+%       \put (80, -3) {
+% 	\footnotesize Label = ``dog''
+%       }
+%     \end{overpic}
+%   \end{minipage}
+%
+%   \vspace{0.15cm}
+%   \begin{itemize}
+%     \item[$\bullet$] \orangebold{Numerous} methods exist to craft an \orangebold{adversarial perturbation};
+%     \item[$\bullet$] The best attacks reduce the accuracy of an undefended model to \orangebold{0\%};
+%   \end{itemize}
+%
+%   \vspace{0.5cm}
+%   \begin{mdframed}[linecolor=OrangePSL,linewidth=1pt]
+%     \centering
+%     Adversarial examples poses a growing societal problem as more and more machine learning models are deployed into critical-decision systems.
+%   \end{mdframed}
+%
+% \end{frame}
